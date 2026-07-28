@@ -141,9 +141,10 @@ jobs:
           git pull --rebase
           git add releases/DoubleTalkApp.ipa
           git commit -m "CI: Add compiled DoubleTalkApp.ipa"
-          git push
+          git push origin HEAD:main || true
 
       - name: Upload IPA Artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: DoubleTalkApp-iOS-IPA
