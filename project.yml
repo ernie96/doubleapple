@@ -13,27 +13,16 @@ settings:
     HEADER_SEARCH_PATHS:
       - "$(inherited)"
       - "$(SRCROOT)/Sources/CDoubleTalk/include"
-    SWIFT_INCLUDE_PATHS:
-      - "$(inherited)"
-      - "$(SRCROOT)/Sources/CDoubleTalk/include"
     CODE_SIGNING_ALLOWED: NO
     CODE_SIGNING_REQUIRED: NO
     AD_HOC_CODE_SIGNING_ALLOWED: YES
 
 targets:
-  CDoubleTalk:
-    type: library.static
-    platform: iOS
-    sources:
-      - Sources/CDoubleTalk
-    settings:
-      base:
-        PRODUCT_NAME: CDoubleTalk
-
   DoubleTalkKit:
     type: library.static
     platform: iOS
     sources:
+      - Sources/CDoubleTalk
       - Sources/DoubleTalkKit
     settings:
       base:
@@ -41,11 +30,6 @@ targets:
         PRODUCT_NAME: DoubleTalkKit
         PRODUCT_MODULE_NAME: DoubleTalkKit
         DEFINES_MODULE: YES
-        SWIFT_INCLUDE_PATHS:
-          - "$(inherited)"
-          - "$(SRCROOT)/Sources/CDoubleTalk/include"
-    dependencies:
-      - target: CDoubleTalk
 
   DoubleTalkVoiceExtension:
     type: app-extension
@@ -60,7 +44,6 @@ targets:
         INFOPLIST_FILE: Apps/DoubleTalkVoiceExtension/Info.plist
         PRODUCT_NAME: DoubleTalkVoiceExtension
         TARGETED_DEVICE_FAMILY: "1,2"
-        SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h
     dependencies:
       - target: DoubleTalkKit
 
@@ -77,7 +60,6 @@ targets:
         PRODUCT_NAME: DoubleTalk
         INFOPLIST_KEY_CFBundleDisplayName: DoubleTalk
         TARGETED_DEVICE_FAMILY: "1,2"
-        SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
     dependencies:
       - target: DoubleTalkKit
       - target: DoubleTalkVoiceExtension
