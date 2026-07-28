@@ -1,0 +1,28 @@
+Compiling Sources/CDoubleTalk/doubletalk_board.cpp
+In file included from Sources/CDoubleTalk/doubletalk_board.cpp:3:
+Sources/CDoubleTalk/doubletalk_board.h:19:10: fatal error: 'emu.h' file not found
+#include "emu.h"
+         ^~~~~~~
+1 error generated.
+Compiling Sources/CDoubleTalk/dtalk.cpp
+In file included from Sources/CDoubleTalk/dtalk.cpp:8:
+Sources/CDoubleTalk/doubletalk_board.h:19:10: fatal error: 'emu.h' file not found
+#include "emu.h"
+         ^~~~~~~
+1 error generated.
+Compiling Sources/CDoubleTalk/mame/i186.cpp
+Sources/CDoubleTalk/mame/i186.cpp:13:10: fatal error: 'emu.h' file not found
+#include "emu.h"
+         ^~~~~~~
+1 error generated.
+Compiling Sources/CDoubleTalk/mame/i86.cpp
+Sources/CDoubleTalk/mame/i86.cpp:27:10: fatal error: 'emu.h' file not found
+#include "emu.h"
+         ^~~~~~~
+1 error generated.
+Compiling Sources/CDoubleTalk/shim/emu.cpp
+In file included from Sources/CDoubleTalk/shim/emu.cpp:6:
+Sources/CDoubleTalk/shim/emu.h:49:10: fatal error: 'endianness.h' file not found
+#include "endianness.h"
+         ^~~~~~~~~~~~~~
+1 error generated.
