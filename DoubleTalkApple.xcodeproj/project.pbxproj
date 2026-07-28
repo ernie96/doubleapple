@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		10000001 /* DoubleTalkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000002 /* DoubleTalkApp.swift */; };
+		10000003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10000004 /* ContentView.swift */; };
+		10000005 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10000006 /* Info.plist */; };
+		10000007 /* doubletalkpc.bin in Resources */ = {isa = PBXBuildFile; fileRef = 10000008 /* doubletalkpc.bin */; };
+		10000009 /* DoubleTalkVoiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 20000000 /* DoubleTalkVoiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		20000001 /* AudioUnitFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000002 /* AudioUnitFactory.swift */; };
+		20000003 /* DoubleTalkAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20000004 /* DoubleTalkAudioUnit.swift */; };
+		20000005 /* dtalk_shim.c in Sources */ = {isa = PBXBuildFile; fileRef = 30000001 /* dtalk_shim.c */; };
+		20000006 /* DoubleTalkVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30000002 /* DoubleTalkVoice.swift */; };
+		20000007 /* DoubleTalkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30000003 /* DoubleTalkSettings.swift */; };
+		20000008 /* DoubleTalkSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30000004 /* DoubleTalkSettingsStore.swift */; };
+		20000009 /* DoubleTalkSynthesizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30000005 /* DoubleTalkSynthesizer.swift */; };
+		20000010 /* doubletalkpc.bin in Resources */ = {isa = PBXBuildFile; fileRef = 10000008 /* doubletalkpc.bin */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		10000010 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				10000009 /* DoubleTalkVoiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		10000000 /* DoubleTalkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoubleTalkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		10000002 /* DoubleTalkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkApp.swift; sourceTree = "<group>"; };
+		10000004 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		10000006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		10000008 /* doubletalkpc.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = doubletalkpc.bin; sourceTree = "<group>"; };
+		20000000 /* DoubleTalkVoiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DoubleTalkVoiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		20000002 /* AudioUnitFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitFactory.swift; sourceTree = "<group>"; };
+		20000004 /* DoubleTalkAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkAudioUnit.swift; sourceTree = "<group>"; };
+		30000001 /* dtalk_shim.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dtalk_shim.c; sourceTree = "<group>"; };
+		30000002 /* DoubleTalkVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkVoice.swift; sourceTree = "<group>"; };
+		30000003 /* DoubleTalkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkSettings.swift; sourceTree = "<group>"; };
+		30000004 /* DoubleTalkSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkSettingsStore.swift; sourceTree = "<group>"; };
+		30000005 /* DoubleTalkSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkSynthesizer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		10000020 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20000020 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		90000000 /* Main Group */ = {
+			isa = PBXGroup;
+			children = (
+				90000001 /* DoubleTalkApp */,
+				90000002 /* DoubleTalkVoiceExtension */,
+				90000003 /* Sources */,
+				10000008 /* doubletalkpc.bin */,
+				90000004 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		90000001 /* DoubleTalkApp */ = {
+			isa = PBXGroup;
+			children = (
+				10000002 /* DoubleTalkApp.swift */,
+				10000004 /* ContentView.swift */,
+				10000006 /* Info.plist */,
+			);
+			path = Apps/DoubleTalkApp;
+			sourceTree = "<group>";
+		};
+		90000002 /* DoubleTalkVoiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				20000002 /* AudioUnitFactory.swift */,
+				20000004 /* DoubleTalkAudioUnit.swift */,
+			);
+			path = Apps/DoubleTalkVoiceExtension;
+			sourceTree = "<group>";
+		};
+		90000003 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				30000001 /* dtalk_shim.c */,
+				30000002 /* DoubleTalkVoice.swift */,
+				30000003 /* DoubleTalkSettings.swift */,
+				30000004 /* DoubleTalkSettingsStore.swift */,
+				30000005 /* DoubleTalkSynthesizer.swift */,
+			);
+			path = .;
+			sourceTree = "<group>";
+		};
+		90000004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				10000000 /* DoubleTalkApp.app */,
+				20000000 /* DoubleTalkVoiceExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		10000030 /* DoubleTalkApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 10000040 /* Build configuration list for PBXNativeTarget "DoubleTalkApp" */;
+			buildPhases = (
+				10000031 /* Sources */,
+				10000020 /* Frameworks */,
+				10000032 /* Resources */,
+				10000010 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				20000035 /* TargetDependency */,
+			);
+			name = DoubleTalkApp;
+			productName = DoubleTalkApp;
+			productReference = 10000000 /* DoubleTalkApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		20000030 /* DoubleTalkVoiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20000040 /* Build configuration list for PBXNativeTarget "DoubleTalkVoiceExtension" */;
+			buildPhases = (
+				20000031 /* Sources */,
+				20000020 /* Frameworks */,
+				20000032 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DoubleTalkVoiceExtension;
+			productName = DoubleTalkVoiceExtension;
+			productReference = 20000000 /* DoubleTalkVoiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		90000005 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					10000030 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					20000030 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 90000006 /* Build configuration list for PBXProject "DoubleTalkApple" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 90000000 /* Main Group */;
+			productRefGroup = 90000004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				10000030 /* DoubleTalkApp */,
+				20000030 /* DoubleTalkVoiceExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		10000032 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10000005 /* Info.plist in Resources */,
+				10000007 /* doubletalkpc.bin in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20000032 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20000010 /* doubletalkpc.bin in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		10000031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10000001 /* DoubleTalkApp.swift in Sources */,
+				10000003 /* ContentView.swift in Sources */,
+				20000005 /* dtalk_shim.c in Sources */,
+				20000006 /* DoubleTalkVoice.swift in Sources */,
+				20000007 /* DoubleTalkSettings.swift in Sources */,
+				20000008 /* DoubleTalkSettingsStore.swift in Sources */,
+				20000009 /* DoubleTalkSynthesizer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20000031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20000001 /* AudioUnitFactory.swift in Sources */,
+				20000003 /* DoubleTalkAudioUnit.swift in Sources */,
+				20000005 /* dtalk_shim.c in Sources */,
+				20000006 /* DoubleTalkVoice.swift in Sources */,
+				20000007 /* DoubleTalkSettings.swift in Sources */,
+				20000008 /* DoubleTalkSettingsStore.swift in Sources */,
+				20000009 /* DoubleTalkSynthesizer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		20000035 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 20000030 /* DoubleTalkVoiceExtension */;
+			targetProxy = 20000036 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXContainerItemProxy section */
+		20000036 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 90000005 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 20000030;
+			remoteInfo = DoubleTalkVoiceExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin XCBuildConfiguration section */
+		90000007 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Sources/CDoubleTalk/include",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		90000008 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Sources/CDoubleTalk/include",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		10000041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Apps/DoubleTalkApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doubletalkapple.app;
+				PRODUCT_NAME = DoubleTalkApp;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		10000042 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Apps/DoubleTalkApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doubletalkapple.app;
+				PRODUCT_NAME = DoubleTalkApp;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		20000041 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Apps/DoubleTalkVoiceExtension/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doubletalkapple.app.voiceextension;
+				PRODUCT_NAME = DoubleTalkVoiceExtension;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		20000042 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Apps/DoubleTalkVoiceExtension/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doubletalkapple.app.voiceextension;
+				PRODUCT_NAME = DoubleTalkVoiceExtension;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		90000006 /* Build configuration list for PBXProject "DoubleTalkApple" */ = {
+			isa = XCConfigurationList;
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+			buildConfigurations = (
+				90000007 /* Debug */,
+				90000008 /* Release */,
+			);
+		};
+		10000040 /* Build configuration list for PBXNativeTarget "DoubleTalkApp" */ = {
+			isa = XCConfigurationList;
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+			buildConfigurations = (
+				10000041 /* Debug */,
+				10000042 /* Release */,
+			);
+		};
+		20000040 /* Build configuration list for PBXNativeTarget "DoubleTalkVoiceExtension" */ = {
+			isa = XCConfigurationList;
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+			buildConfigurations = (
+				20000041 /* Debug */,
+				20000042 /* Release */,
+			);
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 90000005 /* Project object */;
+}
