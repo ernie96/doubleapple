@@ -26,6 +26,7 @@ jobs:
 
       - name: Build DoubleTalk iOS Binaries
         run: |
+          set -e
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
           echo "Using iOS SDK at: $SDK_PATH"
 
@@ -38,38 +39,45 @@ jobs:
             Sources/CDoubleTalk/dtalk_shim.c \
             -o dtalk_shim.o
 
-          # 2. Compile DoubleTalkApp main executable for iOS (arm64)
+          # 2. Compile DoubleTalkKit Swift Module and Static Library
           xcrun -sdk iphoneos swiftc \
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
-            -module-name DoubleTalkApp \
-            -parse-as-library \
+            -emit-library \
+            -emit-module \
+            -module-name DoubleTalkKit \
             -I Sources/CDoubleTalk/include \
-            -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \
+            -Xcc -ISources/CDoubleTalk/include \
             dtalk_shim.o \
             Sources/DoubleTalkKit/DoubleTalkVoice.swift \
             Sources/DoubleTalkKit/DoubleTalkSettings.swift \
             Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
             Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
+            -o libDoubleTalkKit.a
+
+          # 3. Compile DoubleTalkApp main executable
+          xcrun -sdk iphoneos swiftc \
+            -target arm64-apple-ios16.0 \
+            -sdk "$SDK_PATH" \
+            -O \
+            -parse-as-library \
+            -module-name DoubleTalkApp \
+            -I . \
+            -L . -lDoubleTalkKit \
             Apps/DoubleTalkApp/DoubleTalkApp.swift \
             Apps/DoubleTalkApp/ContentView.swift \
             -o DoubleTalkAppExec
 
-          # 3. Compile DoubleTalkVoiceExtension appex executable for iOS (arm64)
+          # 4. Compile DoubleTalkVoiceExtension appex executable
           xcrun -sdk iphoneos swiftc \
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
-            -module-name DoubleTalkVoiceExtension \
             -parse-as-library \
-            -I Sources/CDoubleTalk/include \
-            -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
-            dtalk_shim.o \
-            Sources/DoubleTalkKit/DoubleTalkVoice.swift \
-            Sources/DoubleTalkKit/DoubleTalkSettings.swift \
-            Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
-            Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
+            -module-name DoubleTalkVoiceExtension \
+            -I . \
+            -L . -lDoubleTalkKit \
             Apps/DoubleTalkVoiceExtension/AudioUnitFactory.swift \
             Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift \
             -o DoubleTalkVoiceExtensionExec
