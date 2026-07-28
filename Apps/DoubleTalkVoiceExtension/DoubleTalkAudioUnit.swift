@@ -19,6 +19,7 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
     private let mutex = DispatchSemaphore(value: 1)
 
     private let asbdRate: Double = 22050.0
+    private var requestCount = 0
     private let outputBus: AUAudioUnitBus
     private var _outputBusses: AUAudioUnitBusArray!
     private let outputFormat: AVAudioFormat
@@ -110,14 +111,28 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         // Resolve requested voice speaker
         let speaker = Self.speaker(for: request.voice.identifier)
 
-        // Parse text from SSML representation
-        let text = Self.cleanSSML(ssml)
-        let spokenText = text.isEmpty ? "DoubleTalk PC." : text
+        requestCount += 1
+        var segments = Self.segments(from: ssml)
+        if segments.allSatisfy({ $0.text.isEmpty }) && requestCount == 1 {
+            segments = [(text: "DoubleTalk PC.", silenceMs: 0)]
+        }
 
-        let int16Samples = synth.render(spokenText, settings: settings, speaker: speaker)
+        func silence(_ ms: Int) -> [Int16] {
+            [Int16](repeating: 0, count: Int(Double(ms) / 1000.0 * synth.sampleRate))
+        }
+
+        var int16Samples: [Int16] = []
+        for seg in segments {
+            if !seg.text.isEmpty {
+                int16Samples += synth.render(seg.text, settings: settings, speaker: speaker)
+            }
+            if seg.silenceMs > 0 {
+                int16Samples += silence(seg.silenceMs)
+            }
+        }
+
         if int16Samples.isEmpty {
-            storeSamples([Float32](repeating: 0, count: 256))
-            return
+            int16Samples = silence(10)
         }
 
         // Convert Int16 -> Float32 (-1.0 to 1.0)
@@ -189,6 +204,25 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         return .paul
     }
 
+    private static func segments(from ssml: String) -> [(text: String, silenceMs: Int)] {
+        let ns = ssml as NSString
+        guard let re = try? NSRegularExpression(pattern: #"<break\b([^>]*?)/?\s*>"#, options: [.caseInsensitive]) else {
+            return [(cleanSSML(ssml), 0)]
+        }
+        var result: [(text: String, silenceMs: Int)] = []
+        var last = 0
+        for m in re.matches(in: ssml, range: NSRange(location: 0, length: ns.length)) {
+            let chunk = ns.substring(with: NSRange(location: last, length: m.range.location - last))
+            let attrs = m.range(at: 1).location != NSNotFound ? ns.substring(with: m.range(at: 1)) : ""
+            let ms = silenceMilliseconds(fromBreakAttributes: attrs)
+            result.append((cleanSSML(chunk), ms))
+            last = m.range.location + m.range.length
+        }
+        let tail = cleanSSML(ns.substring(from: last))
+        if !tail.isEmpty { result.append((tail, 0)) }
+        return result.isEmpty ? [(cleanSSML(ssml), 0)] : result
+    }
+
     private static func cleanSSML(_ ssml: String) -> String {
         var t = ssml.replacingOccurrences(of: "<[^>]+>", with: " ", options: .regularExpression)
         let entities = ["&apos;": "'", "&quot;": "\"", "&amp;": "&", "&lt;": "<", "&gt;": ">", "&#39;": "'"]
@@ -196,6 +230,30 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         t = t.replacingOccurrences(of: "[", with: " ").replacingOccurrences(of: "]", with: " ")
         t = t.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
         return t.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private static func silenceMilliseconds(fromBreakAttributes attrs: String) -> Int {
+        func value(_ name: String) -> String? {
+            guard let re = try? NSRegularExpression(pattern: "\(name)\\s*=\\s*[\"']([^\"']+)[\"']", options: [.caseInsensitive]),
+                  let m = re.firstMatch(in: attrs, range: NSRange(attrs.startIndex..., in: attrs)),
+                  let r = Range(m.range(at: 1), in: attrs) else { return nil }
+            return String(attrs[r])
+        }
+        func cap(_ ms: Int) -> Int { max(0, min(ms, 2000)) }
+        if let time = value("time")?.lowercased().trimmingCharacters(in: .whitespaces) {
+            if time.hasSuffix("ms"), let n = Double(time.dropLast(2)) { return cap(Int(n)) }
+            if time.hasSuffix("s"),  let n = Double(time.dropLast(1)) { return cap(Int(n * 1000)) }
+            if let n = Double(time) { return cap(Int(n)) }
+        }
+        switch value("strength")?.lowercased() {
+        case "none":     return 0
+        case "x-weak":   return 100
+        case "weak":     return 200
+        case "medium":   return 350
+        case "strong":   return 500
+        case "x-strong": return 800
+        default:         return 300
+        }
     }
 
     private static func extractProsodyAttribute(_ ssml: String, _ attribute: String) -> Float? {
