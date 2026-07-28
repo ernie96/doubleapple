@@ -24,34 +24,57 @@ jobs:
           fi
           echo "doubletalkpc.bin size: $(wc -c < doubletalkpc.bin) bytes"
 
-      - name: Build DoubleTalk Package
+      - name: Build DoubleTalk iOS Binaries
         run: |
-          swift build -c release
+          SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
+          echo "Using iOS SDK at: $SDK_PATH"
 
-      - name: Build Xcode Project
-        run: |
-          xcodebuild \
-            -project DoubleTalkApple.xcodeproj \
-            -scheme DoubleTalkApp \
-            -sdk iphoneos \
-            -configuration Release \
-            -derivedDataPath build \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES
+          # 1. Compile DoubleTalkApp main executable for iOS (arm64)
+          xcrun -sdk iphoneos swiftc \
+            -target arm64-apple-ios16.0 \
+            -sdk "$SDK_PATH" \
+            -O \
+            -parse-as-library \
+            -I Sources/CDoubleTalk/include \
+            -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \
+            Sources/CDoubleTalk/dtalk_shim.c \
+            Sources/DoubleTalkKit/*.swift \
+            Apps/DoubleTalkApp/*.swift \
+            -o DoubleTalkAppExec
+
+          # 2. Compile DoubleTalkVoiceExtension appex executable for iOS (arm64)
+          xcrun -sdk iphoneos swiftc \
+            -target arm64-apple-ios16.0 \
+            -sdk "$SDK_PATH" \
+            -O \
+            -parse-as-library \
+            -I Sources/CDoubleTalk/include \
+            -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
+            Sources/CDoubleTalk/dtalk_shim.c \
+            Sources/DoubleTalkKit/*.swift \
+            Apps/DoubleTalkVoiceExtension/*.swift \
+            -o DoubleTalkVoiceExtensionExec
 
       - name: Package Payload and Create IPA
         run: |
-          mkdir -p Payload
-          APP_PATH=$(find build -name "DoubleTalkApp.app" -type d | head -n 1)
-          if [ -z "$APP_PATH" ]; then
-            echo "Error: DoubleTalkApp.app not found in build directory!"
-            exit 1
-          fi
-          echo "Found compiled app at: $APP_PATH"
-          cp -R "$APP_PATH" Payload/
+          mkdir -p Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex
+
+          # Assemble Main App bundle
+          cp DoubleTalkAppExec Payload/DoubleTalkApp.app/DoubleTalkApp
+          chmod +x Payload/DoubleTalkApp.app/DoubleTalkApp
+          cp Apps/DoubleTalkApp/Info.plist Payload/DoubleTalkApp.app/Info.plist
+          cp doubletalkpc.bin Payload/DoubleTalkApp.app/doubletalkpc.bin
+          printf "APPL????" > Payload/DoubleTalkApp.app/PkgInfo
+
+          # Assemble Voice Extension bundle
+          cp DoubleTalkVoiceExtensionExec Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/DoubleTalkVoiceExtension
+          chmod +x Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/DoubleTalkVoiceExtension
+          cp Apps/DoubleTalkVoiceExtension/Info.plist Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/Info.plist
+          cp doubletalkpc.bin Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/doubletalkpc.bin
+
+          # Zip into .ipa
           zip -r DoubleTalkApp.ipa Payload
+          echo "IPA successfully created: DoubleTalkApp.ipa ($(wc -c < DoubleTalkApp.ipa) bytes)"
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
