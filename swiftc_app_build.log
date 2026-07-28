@@ -1,17 +1,4 @@
-Apps/DoubleTalkApp/ContentView.swift:169:25: error: no exact matches in call to initializer 
-                        Label("Step 1: Open iOS Settings app", systemName: "gear")
-                        ^
-SwiftUI.Label:3:12: note: incorrect labels for candidate (have: '(_:systemName:)', expected: '(_:image:)')
-    public init(_ titleKey: LocalizedStringKey, image name: String)
-           ^
-SwiftUI.Label:4:12: note: incorrect labels for candidate (have: '(_:systemName:)', expected: '(_:systemImage:)')
-    public init(_ titleKey: LocalizedStringKey, systemImage name: String)
-           ^
-Apps/DoubleTalkApp/ContentView.swift:182:40: error: type 'Array<UTType>.ArrayLiteralElement' (aka 'UTType') has no member 'bin'
-                allowedContentTypes: [.bin, .data, .item],
-                                      ~^~~
-Apps/DoubleTalkApp/ContentView.swift:263:25: error: missing argument label 'contentsOf:' in call
-            data.append(UnsafeRawBufferPointer(ptr))
-                        ^
-                        contentsOf: 
+Apps/DoubleTalkApp/DoubleTalkApp.swift:17:59: error: argument passed to call that takes no arguments
+        AVSpeechSynthesisProviderVoice.updateSpeechVoices([
+                                                         ~^
 error: fatalError
