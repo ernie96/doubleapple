@@ -124,6 +124,10 @@ jobs:
           cp Apps/DoubleTalkVoiceExtension/Info.plist Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/Info.plist
           cp doubletalkpc.bin Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/doubletalkpc.bin
 
+          # Ad-hoc sign both binaries
+          codesign -s - --force --entitlements Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension.entitlements Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex
+          codesign -s - --force --entitlements Apps/DoubleTalkApp/DoubleTalkApp.entitlements Payload/DoubleTalkApp.app
+
           # Zip into .ipa
           zip -r DoubleTalkApp.ipa Payload
           echo "IPA created successfully: DoubleTalkApp.ipa ($(wc -c < DoubleTalkApp.ipa) bytes)"

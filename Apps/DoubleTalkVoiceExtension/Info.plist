@@ -3,19 +3,19 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>DoubleTalk Speech Engine</string>
 	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
+	<string>DoubleTalkVoiceExtension</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.ernie96.DoubleTalkApp.DoubleTalkVoiceExtension</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>DoubleTalkVoiceExtension</string>
 	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -43,14 +43,14 @@
 						<integer>1</integer>
 					</dict>
 					<key>factoryFunction</key>
-					<string>$(PRODUCT_MODULE_NAME).AudioUnitFactory</string>
+					<string>DoubleTalkVoiceExtension.AudioUnitFactory</string>
 				</dict>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.AudioUnit-UI</string>
 		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).AudioUnitFactory</string>
+		<string>DoubleTalkVoiceExtension.AudioUnitFactory</string>
 	</dict>
 </dict>
 </plist>
