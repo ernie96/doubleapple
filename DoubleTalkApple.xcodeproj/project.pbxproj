@@ -45,11 +45,11 @@
 		20000000 /* DoubleTalkVoiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DoubleTalkVoiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		20000002 /* AudioUnitFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitFactory.swift; sourceTree = "<group>"; };
 		20000004 /* DoubleTalkAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkAudioUnit.swift; sourceTree = "<group>"; };
-		30000001 /* dtalk_shim.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dtalk_shim.c; sourceTree = "<group>"; };
-		30000002 /* DoubleTalkVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkVoice.swift; sourceTree = "<group>"; };
-		30000003 /* DoubleTalkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkSettings.swift; sourceTree = "<group>"; };
-		30000004 /* DoubleTalkSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkSettingsStore.swift; sourceTree = "<group>"; };
-		30000005 /* DoubleTalkSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTalkSynthesizer.swift; sourceTree = "<group>"; };
+		30000001 /* dtalk_shim.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Sources/CDoubleTalk/dtalk_shim.c; sourceTree = "<group>"; };
+		30000002 /* DoubleTalkVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/DoubleTalkKit/DoubleTalkVoice.swift; sourceTree = "<group>"; };
+		30000003 /* DoubleTalkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/DoubleTalkKit/DoubleTalkSettings.swift; sourceTree = "<group>"; };
+		30000004 /* DoubleTalkSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift; sourceTree = "<group>"; };
+		30000005 /* DoubleTalkSynthesizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,6 @@
 				30000004 /* DoubleTalkSettingsStore.swift */,
 				30000005 /* DoubleTalkSynthesizer.swift */,
 			);
-			path = .;
 			sourceTree = "<group>";
 		};
 		90000004 /* Products */ = {

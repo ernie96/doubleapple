@@ -9,7 +9,6 @@
 import AVFoundation
 import Accelerate
 import CoreMedia
-import DoubleTalkKit
 
 public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
     private let synth = DoubleTalkSynthesizer()
@@ -88,7 +87,7 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         }
 
         let ssml = request.ssmlRepresentation
-        var settings = DoubleTalkSettingsStore.load()
+        let settings = DoubleTalkSettingsStore.load()
 
         // Resolve requested voice speaker
         let speaker = Self.speaker(for: request.voice.identifier)

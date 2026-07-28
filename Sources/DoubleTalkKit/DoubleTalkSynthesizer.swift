@@ -6,7 +6,6 @@
  */
 
 import Foundation
-import CDoubleTalk
 
 public final class DoubleTalkSynthesizer {
     private var handle: OpaquePointer?
