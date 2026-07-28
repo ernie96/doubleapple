@@ -87,7 +87,25 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         }
 
         let ssml = request.ssmlRepresentation
-        let settings = DoubleTalkSettingsStore.load()
+        var settings = DoubleTalkSettingsStore.load()
+
+        // Extract VoiceOver prosody scaling (rate, pitch, volume) from SSML
+        if let rateVal = Self.extractProsodyAttribute(ssml, "rate") {
+            let ratio = rateVal / 100.0
+            settings.rate = min(100, max(10, Int(Float(settings.rate) * ratio)))
+        }
+        if let pitchVal = Self.extractProsodyAttribute(ssml, "pitch") {
+            if ssml.contains("pitch=\"-") || ssml.contains("pitch=\"+") {
+                settings.pitch = min(100, max(0, Int(Float(settings.pitch) + pitchVal)))
+            } else {
+                let ratio = pitchVal / 100.0
+                settings.pitch = min(100, max(0, Int(Float(settings.pitch) * ratio)))
+            }
+        }
+        if let volVal = Self.extractProsodyAttribute(ssml, "volume") {
+            let ratio = volVal / 100.0
+            settings.volume = min(100, max(0, Int(Float(settings.volume) * ratio)))
+        }
 
         // Resolve requested voice speaker
         let speaker = Self.speaker(for: request.voice.identifier)
@@ -178,6 +196,17 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         t = t.replacingOccurrences(of: "[", with: " ").replacingOccurrences(of: "]", with: " ")
         t = t.replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
         return t.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private static func extractProsodyAttribute(_ ssml: String, _ attribute: String) -> Float? {
+        let pattern = attribute + #"="([^"]+)""#
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: []),
+              let match = regex.firstMatch(in: ssml, options: [], range: NSRange(ssml.startIndex..., in: ssml)) else {
+            return nil
+        }
+        let valueString = String(ssml[Range(match.range(at: 1), in: ssml)!])
+        let numericString = valueString.replacingOccurrences(of: "%", with: "").replacingOccurrences(of: "+", with: "")
+        return Float(numericString)
     }
 
     private func resample(_ input: [Float32], from srcRate: Double, to dstRate: Double) -> [Float32] {
