@@ -29,23 +29,24 @@
 			<key>AudioComponents</key>
 			<array>
 				<dict>
-					<key>componentDescription</key>
-					<dict>
-						<key>manufacturer</key>
-						<string>Dtlk</string>
-						<key>name</key>
-						<string>DoubleTalk PC Speech Synthesizer</string>
-						<key>sandboxSafe</key>
-						<true/>
-						<key>subtype</key>
-						<string>dtlk</string>
-						<key>type</key>
-						<string>spch</string>
-						<key>version</key>
-						<integer>1</integer>
-					</dict>
-					<key>factoryFunction</key>
-					<string>DoubleTalkVoiceExtension.AudioUnitFactory</string>
+					<key>description</key>
+					<string>DoubleTalk PC Speech Synthesizer</string>
+					<key>manufacturer</key>
+					<string>Dtlk</string>
+					<key>name</key>
+					<string>DoubleTalk PC Speech Synthesizer</string>
+					<key>sandboxSafe</key>
+					<true/>
+					<key>subtype</key>
+					<string>dtlk</string>
+					<key>tags</key>
+					<array>
+						<string>Speech Synthesizer</string>
+					</array>
+					<key>type</key>
+					<string>ausp</string>
+					<key>version</key>
+					<integer>1</integer>
 				</dict>
 			</array>
 		</dict>
