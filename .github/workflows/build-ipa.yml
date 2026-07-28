@@ -130,12 +130,12 @@ jobs:
 
       - name: Commit IPA to Repository
         run: |
-          mkdir -p build
-          cp DoubleTalkApp.ipa build/DoubleTalkApp.ipa
+          mkdir -p releases
+          cp DoubleTalkApp.ipa releases/DoubleTalkApp.ipa
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git pull --rebase
-          git add build/DoubleTalkApp.ipa
+          git add releases/DoubleTalkApp.ipa
           git commit -m "CI: Add compiled DoubleTalkApp.ipa"
           git push
 
