@@ -42,17 +42,27 @@ public final class DoubleTalkSettingsStore {
         }
         
         // 2. Try parsing embedded.mobileprovision for AltStore/Sideloadly (Free Dev Accounts)
-        if let path = Bundle.main.path(forResource: "embedded", ofType: "mobileprovision"),
-           let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
-           let string = String(data: data, encoding: .isoLatin1),
-           let groupsRange = string.range(of: "<key>com.apple.security.application-groups</key>") {
-            let tail = string[groupsRange.upperBound...]
-            if let arrayStart = tail.range(of: "<array>"), let arrayEnd = tail.range(of: "</array>") {
-                let arrayContent = tail[arrayStart.upperBound..<arrayEnd.lowerBound]
-                if let stringStart = arrayContent.range(of: "<string>"), let stringEnd = arrayContent.range(of: "</string>") {
-                    let dynamicAppGroup = String(arrayContent[stringStart.upperBound..<stringEnd.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
-                    if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: dynamicAppGroup) {
-                        return url
+        let mainBundle = Bundle.main
+        let appBundle = Bundle(url: mainBundle.bundleURL.deletingLastPathComponent().deletingLastPathComponent())
+        
+        let paths = [
+            mainBundle.path(forResource: "embedded", ofType: "mobileprovision"),
+            appBundle?.path(forResource: "embedded", ofType: "mobileprovision")
+        ].compactMap { $0 }
+        
+        for path in paths {
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+               let string = String(data: data, encoding: .isoLatin1),
+               let groupsRange = string.range(of: "<key>com.apple.security.application-groups</key>") {
+                
+                let tail = string[groupsRange.upperBound...]
+                if let arrayStart = tail.range(of: "<array>"), let arrayEnd = tail.range(of: "</array>") {
+                    let arrayContent = tail[arrayStart.upperBound..<arrayEnd.lowerBound]
+                    if let stringStart = arrayContent.range(of: "<string>"), let stringEnd = arrayContent.range(of: "</string>") {
+                        let dynamicAppGroup = String(arrayContent[stringStart.upperBound..<stringEnd.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
+                        if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: dynamicAppGroup) {
+                            return url
+                        }
                     }
                 }
             }
