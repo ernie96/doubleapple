@@ -17,24 +17,12 @@ settings:
     CODE_SIGNING_REQUIRED: NO
 
 targets:
-  DoubleTalkKit:
-    type: framework
-    platform: iOS
-    sources:
-      - Sources/CDoubleTalk
-      - Sources/DoubleTalkKit
-    settings:
-      base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.doubletalkapple.kit
-        PRODUCT_NAME: DoubleTalkKit
-        PRODUCT_MODULE_NAME: DoubleTalkKit
-        DEFINES_MODULE: YES
-        SWIFT_OBJC_BRIDGING_HEADER: Sources/CDoubleTalk/include/DoubleTalkKit-Bridging-Header.h
-
   DoubleTalkVoiceExtension:
     type: app-extension
     platform: iOS
     sources:
+      - Sources/CDoubleTalk
+      - Sources/DoubleTalkKit
       - Apps/DoubleTalkVoiceExtension
     settings:
       base:
@@ -45,13 +33,13 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension.entitlements
         SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h
-    dependencies:
-      - target: DoubleTalkKit
 
   DoubleTalkApp:
     type: application
     platform: iOS
     sources:
+      - Sources/CDoubleTalk
+      - Sources/DoubleTalkKit
       - Apps/DoubleTalkApp
     settings:
       base:
@@ -64,7 +52,6 @@ targets:
         CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkApp/DoubleTalkApp.entitlements
         SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
     dependencies:
-      - target: DoubleTalkKit
       - target: DoubleTalkVoiceExtension
         embed: true
         codeSign: false

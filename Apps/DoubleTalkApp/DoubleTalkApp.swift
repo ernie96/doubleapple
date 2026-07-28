@@ -3,7 +3,6 @@
  */
 
 import SwiftUI
-import DoubleTalkKit
 
 @main
 struct DoubleTalkApp: App {
