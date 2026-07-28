@@ -3,11 +3,6 @@ Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift:32:13: warning: variable
         ~~~ ^
         let
 error: link command failed with exit code 1 (use -v to see invocation)
-ld: warning: Could not find or use auto-linked framework 'AudioUnit': framework 'AudioUnit' not found
-ld: warning: Could not find or use auto-linked framework 'CoreAudioTypes': framework 'CoreAudioTypes' not found
-Undefined symbols for architecture arm64:
-  "_main", referenced from:
-      <initial-undefines>
-ld: symbol(s) not found for architecture arm64
+ld: framework 'AudioUnit' not found
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 error: fatalError
