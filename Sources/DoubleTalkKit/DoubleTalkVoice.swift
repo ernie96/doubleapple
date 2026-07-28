@@ -6,6 +6,24 @@
 
 import Foundation
 
+public struct VoicePreset: Equatable {
+    public let pitch: Int
+    public let articulation: Int
+    public let formant: Int
+    public let tone: Int
+    public let expression: Int
+    public let reverb: Int
+
+    public init(pitch: Int, articulation: Int, formant: Int, tone: Int, expression: Int, reverb: Int) {
+        self.pitch = pitch
+        self.articulation = articulation
+        self.formant = formant
+        self.tone = tone
+        self.expression = expression
+        self.reverb = reverb
+    }
+}
+
 public enum DoubleTalkSpeaker: Int, CaseIterable, Identifiable, Codable {
     case paul = 0       // Perfect Paul
     case vader = 1      // Vader
@@ -38,17 +56,17 @@ public enum DoubleTalkSpeaker: Int, CaseIterable, Identifiable, Codable {
         }
     }
 
-    /// Firmware voice presets: (pitch 0-99, articulation 0-9, formant 0-9, tone 0-2, expression 0-9, reverb 0-9)
-    public var preset: (pitch: Int, articulation: Int, formant: Int, tone: Int, expression: Int, reverb: Int) {
+    /// Firmware voice presets
+    public var preset: VoicePreset {
         switch self {
-        case .paul:       return (50, 5, 5, 1, 5, 0)
-        case .vader:      return (30, 4, 5, 1, 7, 2)
-        case .bigBob:     return (40, 4, 1, 0, 6, 0)
-        case .precisePete:return (60, 8, 6, 2, 4, 0)
-        case .ricochet:   return (40, 5, 2, 1, 5, 6)
-        case .biff:       return (50, 5, 5, 1, 5, 0)
-        case .skip:       return (30, 4, 5, 1, 7, 2)
-        case .roboRobert: return (40, 4, 1, 0, 6, 0)
+        case .paul:        return VoicePreset(pitch: 50, articulation: 5, formant: 5, tone: 1, expression: 5, reverb: 0)
+        case .vader:       return VoicePreset(pitch: 30, articulation: 4, formant: 5, tone: 1, expression: 7, reverb: 2)
+        case .bigBob:      return VoicePreset(pitch: 40, articulation: 4, formant: 1, tone: 0, expression: 6, reverb: 0)
+        case .precisePete: return VoicePreset(pitch: 60, articulation: 8, formant: 6, tone: 2, expression: 4, reverb: 0)
+        case .ricochet:    return VoicePreset(pitch: 40, articulation: 5, formant: 2, tone: 1, expression: 5, reverb: 6)
+        case .biff:        return VoicePreset(pitch: 50, articulation: 5, formant: 5, tone: 1, expression: 5, reverb: 0)
+        case .skip:        return VoicePreset(pitch: 30, articulation: 4, formant: 5, tone: 1, expression: 7, reverb: 2)
+        case .roboRobert:  return VoicePreset(pitch: 40, articulation: 4, formant: 1, tone: 0, expression: 6, reverb: 0)
         }
     }
 }
