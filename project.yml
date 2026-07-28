@@ -26,6 +26,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.doubletalkapple.kit
         PRODUCT_NAME: DoubleTalkKit
+        PRODUCT_MODULE_NAME: DoubleTalkKit
+        DEFINES_MODULE: YES
         SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
 
   DoubleTalkVoiceExtension:

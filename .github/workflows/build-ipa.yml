@@ -33,7 +33,6 @@ jobs:
 
       - name: Build Xcode Archive & App
         run: |
-          set -o pipefail
           xcodebuild \
             -project DoubleTalk.xcodeproj \
             -scheme DoubleTalkApp \
@@ -45,7 +44,7 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build | tee xcodebuild.log || (tail -n 100 xcodebuild.log && exit 1)
+            build
 
       - name: Package Payload and Create IPA
         run: |
