@@ -93,9 +93,16 @@ jobs:
             Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
             Apps/DoubleTalkVoiceExtension/AudioUnitFactory.swift \
             Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift \
-            -o DoubleTalkVoiceExtensionExec
+            -o DoubleTalkVoiceExtensionExec > swiftc_ext_build.log 2>&1 || (cat swiftc_ext_build.log && exit 1)
 
-      - name: Package Payload and Create IPA
+      - name: Upload Ext Build Logs on Failure
+        if: failure()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add swiftc_ext_build.log
+          git commit -m "CI: swiftc ext build log"
+          git push
         run: |
           mkdir -p Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex
 
