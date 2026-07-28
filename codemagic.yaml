@@ -1,0 +1,22 @@
+workflows:
+  ios-doubletalk:
+    name: DoubleTalk iOS IPA Build
+    instance_type: mac_mini_m1
+    max_build_duration: 30
+    scripts:
+      - name: Build DoubleTalk iOS App & Extension IPA
+        script: |
+          xcodebuild archive \
+            -project DoubleTalkApple.xcodeproj \
+            -scheme DoubleTalkApp \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/DoubleTalkApp.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+
+          mkdir -p Payload
+          cp -R build/DoubleTalkApp.xcarchive/Products/Applications/DoubleTalkApp.app Payload/
+          zip -r DoubleTalkApp.ipa Payload
+    artifacts:
+      - DoubleTalkApp.ipa
