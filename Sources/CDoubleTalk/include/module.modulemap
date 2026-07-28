@@ -1,0 +1,4 @@
+module CDoubleTalk {
+    header "dtalk_shim.h"
+    export *
+}

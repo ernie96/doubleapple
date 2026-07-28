@@ -13,6 +13,9 @@ settings:
     HEADER_SEARCH_PATHS:
       - "$(inherited)"
       - "$(SRCROOT)/Sources/CDoubleTalk/include"
+    SWIFT_INCLUDE_PATHS:
+      - "$(inherited)"
+      - "$(SRCROOT)/Sources/CDoubleTalk/include"
     CODE_SIGNING_ALLOWED: NO
     CODE_SIGNING_REQUIRED: NO
     AD_HOC_CODE_SIGNING_ALLOWED: YES
@@ -30,7 +33,6 @@ targets:
         PRODUCT_NAME: DoubleTalkKit
         PRODUCT_MODULE_NAME: DoubleTalkKit
         DEFINES_MODULE: YES
-        SWIFT_OBJC_BRIDGING_HEADER: Sources/CDoubleTalk/include/DoubleTalkKit-Bridging-Header.h
 
   DoubleTalkVoiceExtension:
     type: app-extension
