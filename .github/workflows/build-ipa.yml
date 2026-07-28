@@ -43,12 +43,17 @@ jobs:
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
+            -module-name DoubleTalkApp \
             -parse-as-library \
             -I Sources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \
             dtalk_shim.o \
-            Sources/DoubleTalkKit/*.swift \
-            Apps/DoubleTalkApp/*.swift \
+            Sources/DoubleTalkKit/DoubleTalkVoice.swift \
+            Sources/DoubleTalkKit/DoubleTalkSettings.swift \
+            Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
+            Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
+            Apps/DoubleTalkApp/DoubleTalkApp.swift \
+            Apps/DoubleTalkApp/ContentView.swift \
             -o DoubleTalkAppExec
 
           # 3. Compile DoubleTalkVoiceExtension appex executable for iOS (arm64)
@@ -56,12 +61,17 @@ jobs:
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
+            -module-name DoubleTalkVoiceExtension \
             -parse-as-library \
             -I Sources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
             dtalk_shim.o \
-            Sources/DoubleTalkKit/*.swift \
-            Apps/DoubleTalkVoiceExtension/*.swift \
+            Sources/DoubleTalkKit/DoubleTalkVoice.swift \
+            Sources/DoubleTalkKit/DoubleTalkSettings.swift \
+            Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
+            Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
+            Apps/DoubleTalkVoiceExtension/AudioUnitFactory.swift \
+            Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift \
             -o DoubleTalkVoiceExtensionExec
 
       - name: Package Payload and Create IPA
