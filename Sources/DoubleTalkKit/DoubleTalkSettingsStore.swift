@@ -12,14 +12,15 @@ public final class DoubleTalkSettingsStore {
     public static let settingsKey = "DoubleTalkSavedSettings"
     public static let romFilename = "doubletalkpc.bin"
 
-    private static var defaults: UserDefaults {
-        return UserDefaults(suiteName: groupIdentifier) ?? .standard
+    private static var fileURL: URL? {
+        return containerURL?.appendingPathComponent(settingsKey + ".json")
     }
 
     // MARK: - Settings Persistence
 
     public static func load() -> DoubleTalkSettings {
-        guard let data = defaults.data(forKey: settingsKey),
+        guard let url = fileURL,
+              let data = try? Data(contentsOf: url),
               let settings = try? JSONDecoder().decode(DoubleTalkSettings.self, from: data) else {
             return .default
         }
@@ -27,9 +28,8 @@ public final class DoubleTalkSettingsStore {
     }
 
     public static func save(_ settings: DoubleTalkSettings) {
-        if let data = try? JSONEncoder().encode(settings) {
-            defaults.set(data, forKey: settingsKey)
-            defaults.synchronize()
+        if let url = fileURL, let data = try? JSONEncoder().encode(settings) {
+            try? data.write(to: url, options: .atomic)
         }
     }
 
