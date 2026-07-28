@@ -5,6 +5,7 @@
  * DoubleTalkAudioUnit for iOS system-wide VoiceOver speech synthesis.
  */
 
+import Foundation
 import CoreAudioKit
 import AVFoundation
 
