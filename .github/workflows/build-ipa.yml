@@ -34,7 +34,7 @@ jobs:
             for file in Sources/CDoubleTalk/*.cpp Sources/CDoubleTalk/mame/*.cpp Sources/CDoubleTalk/shim/*.cpp; do
               if [ -f "$file" ]; then
                 echo "Compiling $file"
-                xcrun -sdk iphoneos clang++ -target arm64-apple-ios16.0 -isysroot "$SDK_PATH" -std=c++17 -c -O3 -I Sources/CDoubleTalk -I Sources/CDoubleTalk/include "$file" -o "${file%.cpp}.o"
+                xcrun -sdk iphoneos clang++ -target arm64-apple-ios16.0 -isysroot "$SDK_PATH" -std=c++17 -c -O3 -I Sources/CDoubleTalk -I Sources/CDoubleTalk/include -I Sources/CDoubleTalk/shim -I Sources/CDoubleTalk/mame "$file" -o "${file%.cpp}.o"
               fi
             done
           } > cpp_build.log 2>&1 || { cat cpp_build.log; exit 1; }
