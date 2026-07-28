@@ -20,16 +20,12 @@
 #include <string_view>
 #include <type_traits>
 
-#if !defined(__cpp_lib_endian) && !defined(__cpp_lib_bitops)
-namespace std {
-    enum class endian {
-        little = __ORDER_LITTLE_ENDIAN__,
-        big    = __ORDER_BIG_ENDIAN__,
-        native = __BYTE_ORDER__
-    };
-}
-#endif
-static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+enum class mame_endian {
+    little = __ORDER_LITTLE_ENDIAN__,
+    big    = __ORDER_BIG_ENDIAN__,
+    native = __BYTE_ORDER__
+};
+static_assert(mame_endian::native == mame_endian::little || mame_endian::native == mame_endian::big, "Mixed-endian platforms not supported");
 
 
 namespace util {
@@ -39,7 +35,7 @@ namespace util {
 //**************************************************************************
 
 // helper for accessing data adjusted for endianness
-template <typename In, typename Out, std::endian Endian>
+template <typename In, typename Out, mame_endian Endian>
 class offset_endian_cast
 {
 private:
@@ -54,8 +50,8 @@ private:
 public:
 	constexpr offset_endian_cast(In *ptr, std::ptrdiff_t offs) noexcept : m_ptr(reinterpret_cast<Out *>(ptr)), m_offs(offs) { }
 
-	constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[(m_offs + i) ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
-	constexpr Out &operator*() const noexcept { return m_ptr[m_offs ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+	constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[(m_offs + i) ^ ((Endian != mame_endian::native) ? SWIZZLE : 0)]; }
+	constexpr Out &operator*() const noexcept { return m_ptr[m_offs ^ ((Endian != mame_endian::native) ? SWIZZLE : 0)]; }
 
 	constexpr offset_endian_cast operator+(std::ptrdiff_t i) const noexcept { return offset_endian_cast(*this) += i; }
 	constexpr offset_endian_cast operator-(std::ptrdiff_t i) const noexcept { return offset_endian_cast(*this) -= i; }
@@ -70,7 +66,7 @@ public:
 
 
 // helper for accessing data adjusted for endianness
-template <typename In, typename Out, std::endian Endian>
+template <typename In, typename Out, mame_endian Endian>
 class endian_cast
 {
 private:
@@ -84,7 +80,7 @@ private:
 public:
 	constexpr endian_cast(In *ptr) noexcept : m_ptr(reinterpret_cast<Out *>(ptr)) { }
 
-	constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[i ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+	constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[i ^ ((Endian != mame_endian::native) ? SWIZZLE : 0)]; }
 
 	constexpr auto operator+(std::ptrdiff_t offs) const noexcept
 	{
@@ -107,10 +103,10 @@ public:
 //  MACROS AND INLINE FUNCTIONS
 //**************************************************************************
 
-constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+constexpr std::string_view endian_to_string_view(mame_endian e) { using namespace std::literals; return e == mame_endian::little ? "little"sv : "big"sv; }
 
 // endian-based value: first value is if native endianness is little-endian, second is if native is big-endian
-#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((mame_endian::native == mame_endian::little) ? (leval) : (beval))
 
 
 // inline functions for accessing bytes and words within larger chunks
@@ -120,7 +116,7 @@ auto big_endian_cast(U *ptr)
 {
 	using requested_const = std::conditional_t<std::is_const_v<U>, std::add_const_t<T>, T>;
 	using requested_cv = std::conditional_t<std::is_volatile_v<U>, std::add_volatile<requested_const>, requested_const>;
-	return endian_cast<U, requested_cv, std::endian::big>(ptr);
+	return endian_cast<U, requested_cv, mame_endian::big>(ptr);
 }
 
 template <typename T, typename U>
@@ -128,7 +124,7 @@ auto little_endian_cast(U *ptr)
 {
 	using requested_const = std::conditional_t<std::is_const_v<U>, std::add_const_t<T>, T>;
 	using requested_cv = std::conditional_t<std::is_volatile_v<U>, std::add_volatile<requested_const>, requested_const>;
-	return endian_cast<U, requested_cv, std::endian::little>(ptr);
+	return endian_cast<U, requested_cv, mame_endian::little>(ptr);
 }
 
 } // namespace util
