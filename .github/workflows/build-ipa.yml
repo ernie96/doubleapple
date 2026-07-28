@@ -41,11 +41,8 @@ jobs:
             -configuration Release \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build 2>&1 | tee doubletalkkit_build.log || (cat doubletalkkit_build.log | tail -n 100 && exit 1)
+            build 2>&1 | tee doubletalkkit_build.log || (echo "=== BUILD LOG FAILED ===" && cat doubletalkkit_build.log && exit 1)
 
       - name: Build DoubleTalkVoiceExtension
         run: |
@@ -57,11 +54,8 @@ jobs:
             -configuration Release \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build 2>&1 | tee ext_build.log || (cat ext_build.log | tail -n 100 && exit 1)
+            build 2>&1 | tee ext_build.log || (echo "=== EXT BUILD LOG FAILED ===" && cat ext_build.log && exit 1)
 
       - name: Build DoubleTalkApp Application
         run: |
@@ -73,11 +67,8 @@ jobs:
             -configuration Release \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build 2>&1 | tee app_build.log || (cat app_build.log | tail -n 100 && exit 1)
+            build 2>&1 | tee app_build.log || (echo "=== APP BUILD LOG FAILED ===" && cat app_build.log && exit 1)
 
       - name: Package Payload and Create IPA
         run: |

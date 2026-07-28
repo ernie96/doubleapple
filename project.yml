@@ -31,6 +31,9 @@ targets:
         PRODUCT_MODULE_NAME: DoubleTalkKit
         APPLICATION_EXTENSION_API_ONLY: YES
         DEFINES_MODULE: YES
+        HEADER_SEARCH_PATHS:
+          - "$(inherited)"
+          - "$(SRCROOT)/Sources/CDoubleTalk/include"
 
   DoubleTalkVoiceExtension:
     type: app-extension
@@ -45,6 +48,9 @@ targets:
         INFOPLIST_FILE: Apps/DoubleTalkVoiceExtension/Info.plist
         PRODUCT_NAME: DoubleTalkVoiceExtension
         TARGETED_DEVICE_FAMILY: "1,2"
+        HEADER_SEARCH_PATHS:
+          - "$(inherited)"
+          - "$(SRCROOT)/Sources/CDoubleTalk/include"
     dependencies:
       - target: DoubleTalkKit
 
@@ -61,6 +67,9 @@ targets:
         PRODUCT_NAME: DoubleTalk
         INFOPLIST_KEY_CFBundleDisplayName: DoubleTalk
         TARGETED_DEVICE_FAMILY: "1,2"
+        HEADER_SEARCH_PATHS:
+          - "$(inherited)"
+          - "$(SRCROOT)/Sources/CDoubleTalk/include"
     dependencies:
       - target: DoubleTalkKit
       - target: DoubleTalkVoiceExtension
