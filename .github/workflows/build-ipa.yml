@@ -39,47 +39,26 @@ jobs:
             Sources/CDoubleTalk/dtalk_shim.c \
             -o dtalk_shim.o
 
-          # 2. Compile DoubleTalkKit Swift Module and Static Library
-          xcrun -sdk iphoneos swiftc \
-            -target arm64-apple-ios16.0 \
-            -sdk "$SDK_PATH" \
-            -O \
-            -emit-library \
-            -emit-module \
-            -module-name DoubleTalkKit \
-            -I Sources/CDoubleTalk/include \
-            -Xcc -ISources/CDoubleTalk/include \
-            dtalk_shim.o \
-            Sources/DoubleTalkKit/DoubleTalkVoice.swift \
-            Sources/DoubleTalkKit/DoubleTalkSettings.swift \
-            Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
-            Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
-            -o libDoubleTalkKit.a
-
-          # 3. Compile DoubleTalkApp main executable
+          # 2. Compile DoubleTalkApp main executable for iOS (arm64)
           xcrun -sdk iphoneos swiftc \
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
             -parse-as-library \
-            -module-name DoubleTalkApp \
-            -I . \
-            -L . -lDoubleTalkKit \
-            Apps/DoubleTalkApp/DoubleTalkApp.swift \
-            Apps/DoubleTalkApp/ContentView.swift \
+            dtalk_shim.o \
+            Sources/DoubleTalkKit/*.swift \
+            Apps/DoubleTalkApp/*.swift \
             -o DoubleTalkAppExec
 
-          # 4. Compile DoubleTalkVoiceExtension appex executable
+          # 3. Compile DoubleTalkVoiceExtension appex executable for iOS (arm64)
           xcrun -sdk iphoneos swiftc \
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
             -parse-as-library \
-            -module-name DoubleTalkVoiceExtension \
-            -I . \
-            -L . -lDoubleTalkKit \
-            Apps/DoubleTalkVoiceExtension/AudioUnitFactory.swift \
-            Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift \
+            dtalk_shim.o \
+            Sources/DoubleTalkKit/*.swift \
+            Apps/DoubleTalkVoiceExtension/*.swift \
             -o DoubleTalkVoiceExtensionExec
 
       - name: Package Payload and Create IPA
