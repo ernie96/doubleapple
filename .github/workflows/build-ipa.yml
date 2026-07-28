@@ -45,6 +45,9 @@ jobs:
             -O \
             -parse-as-library \
             -module-name DoubleTalkApp \
+            -framework SwiftUI \
+            -framework AVFoundation \
+            -framework Foundation \
             -I Sources/CDoubleTalk/include \
             -Xcc -ISources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \
@@ -66,6 +69,10 @@ jobs:
             -O \
             -parse-as-library \
             -module-name DoubleTalkVoiceExtension \
+            -framework AVFoundation \
+            -framework CoreMedia \
+            -framework Accelerate \
+            -framework Foundation \
             -I Sources/CDoubleTalk/include \
             -Xcc -ISources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
