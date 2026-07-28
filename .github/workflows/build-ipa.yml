@@ -46,6 +46,7 @@ jobs:
             -parse-as-library \
             -module-name DoubleTalkApp \
             -I Sources/CDoubleTalk/include \
+            -Xcc -ISources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \
             dtalk_shim.o \
             Sources/DoubleTalkKit/DoubleTalkVoice.swift \
@@ -66,6 +67,7 @@ jobs:
             -parse-as-library \
             -module-name DoubleTalkVoiceExtension \
             -I Sources/CDoubleTalk/include \
+            -Xcc -ISources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
             dtalk_shim.o \
             Sources/DoubleTalkKit/DoubleTalkVoice.swift \
