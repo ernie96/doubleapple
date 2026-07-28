@@ -21,11 +21,19 @@ settings:
     AD_HOC_CODE_SIGNING_ALLOWED: YES
 
 targets:
-  DoubleTalkKit:
+  CDoubleTalk:
     type: library.static
     platform: iOS
     sources:
       - Sources/CDoubleTalk
+    settings:
+      base:
+        PRODUCT_NAME: CDoubleTalk
+
+  DoubleTalkKit:
+    type: library.static
+    platform: iOS
+    sources:
       - Sources/DoubleTalkKit
     settings:
       base:
@@ -33,6 +41,12 @@ targets:
         PRODUCT_NAME: DoubleTalkKit
         PRODUCT_MODULE_NAME: DoubleTalkKit
         DEFINES_MODULE: YES
+        SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
+        SWIFT_INCLUDE_PATHS:
+          - "$(inherited)"
+          - "$(SRCROOT)/Sources/CDoubleTalk/include"
+    dependencies:
+      - target: CDoubleTalk
 
   DoubleTalkVoiceExtension:
     type: app-extension
