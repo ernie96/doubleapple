@@ -11,6 +11,7 @@ settings:
     CURRENT_PROJECT_VERSION: "1"
     SWIFT_VERSION: "5.9"
     HEADER_SEARCH_PATHS:
+      - "$(inherited)"
       - "$(SRCROOT)/Sources/CDoubleTalk/include"
     CODE_SIGNING_ALLOWED: NO
     CODE_SIGNING_REQUIRED: NO

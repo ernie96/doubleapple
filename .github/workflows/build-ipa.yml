@@ -44,14 +44,7 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build > build.log 2>&1 || (cat build.log | tail -n 150 && exit 1)
-
-      - name: Upload Build Log Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: xcodebuild-log
-          path: build.log
+            build
 
       - name: Package Payload and Create IPA
         run: |
