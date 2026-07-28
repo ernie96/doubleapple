@@ -100,8 +100,6 @@ jobs:
             -framework Foundation \
             -framework AudioToolbox \
             -framework CoreAudio \
-            -framework AudioUnit \
-            -framework CoreAudioTypes \
             -I Sources/CDoubleTalk/include \
             -Xcc -ISources/CDoubleTalk/include \
             -Xlinker -lc++ \
