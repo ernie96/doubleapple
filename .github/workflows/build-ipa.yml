@@ -29,30 +29,37 @@ jobs:
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
           echo "Using iOS SDK at: $SDK_PATH"
 
-          # 1. Compile DoubleTalkApp main executable for iOS (arm64)
+          # 1. Compile C shim object file using clang
+          xcrun -sdk iphoneos clang \
+            -target arm64-apple-ios16.0 \
+            -isysroot "$SDK_PATH" \
+            -c -O2 \
+            -I Sources/CDoubleTalk/include \
+            Sources/CDoubleTalk/dtalk_shim.c \
+            -o dtalk_shim.o
+
+          # 2. Compile DoubleTalkApp main executable for iOS (arm64)
           xcrun -sdk iphoneos swiftc \
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
             -parse-as-library \
             -I Sources/CDoubleTalk/include \
-            -Xcc -ISources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \
-            Sources/CDoubleTalk/dtalk_shim.c \
+            dtalk_shim.o \
             Sources/DoubleTalkKit/*.swift \
             Apps/DoubleTalkApp/*.swift \
             -o DoubleTalkAppExec
 
-          # 2. Compile DoubleTalkVoiceExtension appex executable for iOS (arm64)
+          # 3. Compile DoubleTalkVoiceExtension appex executable for iOS (arm64)
           xcrun -sdk iphoneos swiftc \
             -target arm64-apple-ios16.0 \
             -sdk "$SDK_PATH" \
             -O \
             -parse-as-library \
             -I Sources/CDoubleTalk/include \
-            -Xcc -ISources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
-            Sources/CDoubleTalk/dtalk_shim.c \
+            dtalk_shim.o \
             Sources/DoubleTalkKit/*.swift \
             Apps/DoubleTalkVoiceExtension/*.swift \
             -o DoubleTalkVoiceExtensionExec
