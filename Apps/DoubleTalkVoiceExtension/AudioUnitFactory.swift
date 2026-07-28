@@ -9,7 +9,12 @@ import Foundation
 import CoreAudioKit
 import AVFoundation
 
+@main
 public class AudioUnitFactory: NSObject, AUAudioUnitFactory, NSExtensionRequestHandling {
+    public static func main() {
+        _ = NSExtensionMain(CommandLine.argc, CommandLine.unsafeArgv)
+    }
+
     private var audioUnit: AUAudioUnit?
 
     public func createAudioUnit(with componentDescription: AudioComponentDescription) throws -> AUAudioUnit {

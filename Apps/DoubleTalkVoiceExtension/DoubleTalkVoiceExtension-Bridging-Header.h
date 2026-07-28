@@ -8,5 +8,6 @@
 #define DoubleTalkVoiceExtension_Bridging_Header_h
 
 #include "dtalk.h"
+extern int NSExtensionMain(int argc, char *argv[]);
 
 #endif /* DoubleTalkVoiceExtension-Bridging_Header_h */

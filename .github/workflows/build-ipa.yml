@@ -87,7 +87,8 @@ jobs:
             -framework Foundation \
             -framework AudioToolbox \
             -framework CoreAudio \
-            -Xlinker -e -Xlinker _NSExtensionMain \
+            -framework AudioUnit \
+            -framework CoreAudioTypes \
             -I Sources/CDoubleTalk/include \
             -Xcc -ISources/CDoubleTalk/include \
             -Xlinker -lc++ \
