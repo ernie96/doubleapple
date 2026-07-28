@@ -36,7 +36,29 @@ public final class DoubleTalkSettingsStore {
     // MARK: - ROM Management
 
     public static var containerURL: URL? {
-        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupIdentifier)
+        // 1. Try hardcoded (works for TrollStore, TestFlight, AppStore, Paid Dev Accounts)
+        if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupIdentifier) {
+            return url
+        }
+        
+        // 2. Try parsing embedded.mobileprovision for AltStore/Sideloadly (Free Dev Accounts)
+        if let path = Bundle.main.path(forResource: "embedded", ofType: "mobileprovision"),
+           let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+           let string = String(data: data, encoding: .isoLatin1),
+           let groupsRange = string.range(of: "<key>com.apple.security.application-groups</key>") {
+            let tail = string[groupsRange.upperBound...]
+            if let arrayStart = tail.range(of: "<array>"), let arrayEnd = tail.range(of: "</array>") {
+                let arrayContent = tail[arrayStart.upperBound..<arrayEnd.lowerBound]
+                if let stringStart = arrayContent.range(of: "<string>"), let stringEnd = arrayContent.range(of: "</string>") {
+                    let dynamicAppGroup = String(arrayContent[stringStart.upperBound..<stringEnd.lowerBound]).trimmingCharacters(in: .whitespacesAndNewlines)
+                    if let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: dynamicAppGroup) {
+                        return url
+                    }
+                }
+            }
+        }
+        
+        return nil
     }
 
     /// Finds and returns doubletalkpc.bin ROM data from bundle or App Group container
