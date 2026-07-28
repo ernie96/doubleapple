@@ -31,10 +31,8 @@ jobs:
           fi
           xcodegen generate
 
-      - name: Build Xcode Archive & App
+      - name: Build DoubleTalkKit Library
         run: |
-          set -e
-          # 1. Build DoubleTalkKit static library
           xcodebuild \
             -project DoubleTalk.xcodeproj \
             -target DoubleTalkKit \
@@ -48,7 +46,8 @@ jobs:
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             build
 
-          # 2. Build DoubleTalkVoiceExtension app extension
+      - name: Build DoubleTalkVoiceExtension
+        run: |
           xcodebuild \
             -project DoubleTalk.xcodeproj \
             -target DoubleTalkVoiceExtension \
@@ -62,7 +61,8 @@ jobs:
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
             build
 
-          # 3. Build DoubleTalkApp main application
+      - name: Build DoubleTalkApp Application
+        run: |
           xcodebuild \
             -project DoubleTalk.xcodeproj \
             -target DoubleTalkApp \
