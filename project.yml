@@ -15,6 +15,7 @@ settings:
       - "$(SRCROOT)/Sources/CDoubleTalk/include"
     CODE_SIGNING_ALLOWED: NO
     CODE_SIGNING_REQUIRED: NO
+    AD_HOC_CODE_SIGNING_ALLOWED: YES
 
 targets:
   DoubleTalkVoiceExtension:
@@ -27,6 +28,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.doubletalkapple.app.voiceextension
+        APPLICATION_EXTENSION_API_ONLY: YES
         GENERATE_INFOPLIST_FILE: NO
         INFOPLIST_FILE: Apps/DoubleTalkVoiceExtension/Info.plist
         PRODUCT_NAME: DoubleTalkVoiceExtension
@@ -51,5 +53,3 @@ targets:
         SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
     dependencies:
       - target: DoubleTalkVoiceExtension
-        embed: true
-        codeSign: false
