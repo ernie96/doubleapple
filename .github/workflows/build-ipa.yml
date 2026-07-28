@@ -83,6 +83,9 @@ jobs:
             -framework CoreMedia \
             -framework Accelerate \
             -framework Foundation \
+            -framework AudioUnit \
+            -framework CoreAudioTypes \
+            -Xlinker -e -Xlinker _NSExtensionMain \
             -I Sources/CDoubleTalk/include \
             -Xcc -ISources/CDoubleTalk/include \
             -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
