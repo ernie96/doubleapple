@@ -26,7 +26,9 @@ jobs:
 
       - name: Build DoubleTalk Package for iOS
         run: |
-          swift build -c release --triple arm64-apple-ios16.0
+          SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
+          echo "Using iOS SDK at: $SDK_PATH"
+          swift build -c release --triple arm64-apple-ios16.0 -Xswiftc -sdk -Xswiftc "$SDK_PATH"
 
       - name: Package Payload and Create IPA
         run: |
