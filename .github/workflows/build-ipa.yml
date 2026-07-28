@@ -60,14 +60,15 @@ jobs:
             Apps/DoubleTalkApp/DoubleTalkApp.swift \
             Apps/DoubleTalkApp/ContentView.swift \
             -o DoubleTalkAppExec > swiftc_app_build.log 2>&1 || (cat swiftc_app_build.log && exit 1)
+          cat swiftc_app_build.log
       - name: Upload Build Logs on Failure
         if: failure()
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add swiftc_app_build.log
-          git commit -m "CI: swiftc build log"
-          git push
+          git commit -m "CI: swiftc app build log" || true
+          git push origin HEAD:main || true
 
       - name: Compile DoubleTalk Voice Extension Binary
         run: |
@@ -96,7 +97,8 @@ jobs:
             Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
             Apps/DoubleTalkVoiceExtension/AudioUnitFactory.swift \
             Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift \
-            -o DoubleTalkVoiceExtensionExec > swiftc_ext_build.log 2>&1 || (cat swiftc_ext_build.log && exit 1)
+            -o DoubleTalkVoiceExtensionExec > swiftc_ext_build.log 2>&1 || { cat swiftc_ext_build.log; exit 1; }
+          cat swiftc_ext_build.log
 
       - name: Upload Ext Build Logs on Failure
         if: failure()
@@ -104,8 +106,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add swiftc_ext_build.log
-          git commit -m "CI: swiftc ext build log"
-          git push
+          git commit -m "CI: swiftc ext build log" || true
+          git push origin HEAD:main || true
 
       - name: Package Payload and Create IPA
         run: |
