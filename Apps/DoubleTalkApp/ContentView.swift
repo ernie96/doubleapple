@@ -219,6 +219,8 @@ struct ContentView: View {
         // Create WAV audio buffer header for AVAudioPlayer
         let wavData = createWAVHeader(pcmData: pcmInt16, sampleRate: 10504)
         do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
             audioPlayer = try AVAudioPlayer(data: wavData)
             audioPlayer?.play()
             isPlaying = true
