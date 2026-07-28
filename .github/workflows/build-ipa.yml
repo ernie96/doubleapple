@@ -33,6 +33,7 @@ jobs:
 
       - name: Build DoubleTalkKit Library
         run: |
+          set -o pipefail
           xcodebuild \
             -project DoubleTalk.xcodeproj \
             -target DoubleTalkKit \
@@ -44,10 +45,11 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build
+            build 2>&1 | tee doubletalkkit_build.log || (cat doubletalkkit_build.log | tail -n 100 && exit 1)
 
       - name: Build DoubleTalkVoiceExtension
         run: |
+          set -o pipefail
           xcodebuild \
             -project DoubleTalk.xcodeproj \
             -target DoubleTalkVoiceExtension \
@@ -59,10 +61,11 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build
+            build 2>&1 | tee ext_build.log || (cat ext_build.log | tail -n 100 && exit 1)
 
       - name: Build DoubleTalkApp Application
         run: |
+          set -o pipefail
           xcodebuild \
             -project DoubleTalk.xcodeproj \
             -target DoubleTalkApp \
@@ -74,7 +77,7 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build
+            build 2>&1 | tee app_build.log || (cat app_build.log | tail -n 100 && exit 1)
 
       - name: Package Payload and Create IPA
         run: |
