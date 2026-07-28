@@ -29,6 +29,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.doubletalkapple.kit
         PRODUCT_NAME: DoubleTalkKit
         PRODUCT_MODULE_NAME: DoubleTalkKit
+        APPLICATION_EXTENSION_API_ONLY: YES
         DEFINES_MODULE: YES
 
   DoubleTalkVoiceExtension:
