@@ -1,28 +1,402 @@
 Compiling Sources/CDoubleTalk/doubletalk_board.cpp
 In file included from Sources/CDoubleTalk/doubletalk_board.cpp:3:
-Sources/CDoubleTalk/doubletalk_board.h:19:10: fatal error: 'emu.h' file not found
-#include "emu.h"
-         ^~~~~~~
-1 error generated.
+In file included from Sources/CDoubleTalk/doubletalk_board.h:19:
+In file included from Sources/CDoubleTalk/shim/emu.h:49:
+Sources/CDoubleTalk/mame/endianness.h:23:20: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+              ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:43: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:66: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:89: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:33:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:48:108: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[(m_offs + i) ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:49:85: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator*() const noexcept { return m_ptr[m_offs ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                      ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:64:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:78:97: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[i ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                  ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:55: error: no type named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                 ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:115: error: no member named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:114:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::big>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:122:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::little>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
 Compiling Sources/CDoubleTalk/dtalk.cpp
 In file included from Sources/CDoubleTalk/dtalk.cpp:8:
-Sources/CDoubleTalk/doubletalk_board.h:19:10: fatal error: 'emu.h' file not found
-#include "emu.h"
-         ^~~~~~~
-1 error generated.
+In file included from Sources/CDoubleTalk/doubletalk_board.h:19:
+In file included from Sources/CDoubleTalk/shim/emu.h:49:
+Sources/CDoubleTalk/mame/endianness.h:23:20: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+              ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:43: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:66: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:89: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:33:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:48:108: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[(m_offs + i) ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:49:85: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator*() const noexcept { return m_ptr[m_offs ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                      ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:64:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:78:97: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[i ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                  ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:55: error: no type named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                 ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:115: error: no member named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:114:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::big>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:122:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::little>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
 Compiling Sources/CDoubleTalk/mame/i186.cpp
-Sources/CDoubleTalk/mame/i186.cpp:13:10: fatal error: 'emu.h' file not found
-#include "emu.h"
-         ^~~~~~~
-1 error generated.
+In file included from Sources/CDoubleTalk/mame/i186.cpp:13:
+In file included from Sources/CDoubleTalk/shim/emu.h:49:
+Sources/CDoubleTalk/mame/endianness.h:23:20: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+              ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:43: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:66: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:89: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:33:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:48:108: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[(m_offs + i) ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:49:85: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator*() const noexcept { return m_ptr[m_offs ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                      ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:64:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:78:97: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[i ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                  ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:55: error: no type named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                 ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:115: error: no member named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:114:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::big>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:122:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::little>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
 Compiling Sources/CDoubleTalk/mame/i86.cpp
-Sources/CDoubleTalk/mame/i86.cpp:27:10: fatal error: 'emu.h' file not found
-#include "emu.h"
-         ^~~~~~~
-1 error generated.
+In file included from Sources/CDoubleTalk/mame/i86.cpp:27:
+In file included from Sources/CDoubleTalk/shim/emu.h:49:
+Sources/CDoubleTalk/mame/endianness.h:23:20: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+              ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:43: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:66: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:89: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:33:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:48:108: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[(m_offs + i) ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:49:85: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator*() const noexcept { return m_ptr[m_offs ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                      ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:64:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:78:97: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[i ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                  ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:55: error: no type named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                 ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:115: error: no member named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:114:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::big>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:122:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::little>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
 Compiling Sources/CDoubleTalk/shim/emu.cpp
 In file included from Sources/CDoubleTalk/shim/emu.cpp:6:
-Sources/CDoubleTalk/shim/emu.h:49:10: fatal error: 'endianness.h' file not found
-#include "endianness.h"
-         ^~~~~~~~~~~~~~
-1 error generated.
+In file included from Sources/CDoubleTalk/shim/emu.h:49:
+Sources/CDoubleTalk/mame/endianness.h:23:20: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+              ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:43: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:66: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:23:89: error: no member named 'endian' in namespace 'std'
+static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
+                                                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:33:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:48:108: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[(m_offs + i) ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:49:85: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator*() const noexcept { return m_ptr[m_offs ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                      ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:64:43: error: no type named 'endian' in namespace 'std'
+template <typename In, typename Out, std::endian Endian>
+                                     ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:78:97: error: no member named 'endian' in namespace 'std'
+        constexpr Out &operator[](std::ptrdiff_t i) const noexcept { return m_ptr[i ^ ((Endian != std::endian::native) ? SWIZZLE : 0)]; }
+                                                                                                  ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:55: error: no type named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                 ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:101:115: error: no member named 'endian' in namespace 'std'
+constexpr std::string_view endian_to_string_view(std::endian e) { using namespace std::literals; return e == std::endian::little ? "little"sv : "big"sv; }
+                                                                                                             ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:114:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::big>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:122:43: error: no member named 'endian' in namespace 'std'
+        return endian_cast<U, requested_cv, std::endian::little>(ptr);
+                                            ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:128:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(1,0); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:129:65: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE_XOR_LE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(0,1); }
+                                                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:57: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                   ~~~~~^
+Sources/CDoubleTalk/mame/endianness.h:132:66: error: no member named 'endian' in namespace 'std'
+template <typename T> constexpr T BYTE4_XOR_BE(T a) { return a ^ NATIVE_ENDIAN_VALUE_LE_BE(3,0); }
+                                                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sources/CDoubleTalk/mame/endianness.h:104:80: note: expanded from macro 'NATIVE_ENDIAN_VALUE_LE_BE'
+#define NATIVE_ENDIAN_VALUE_LE_BE(leval, beval)  ((std::endian::native == std::endian::little) ? (leval) : (beval))
+                                                                          ~~~~~^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.
