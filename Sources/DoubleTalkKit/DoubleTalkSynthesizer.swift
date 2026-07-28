@@ -7,34 +7,6 @@
 
 import Foundation
 
-// MARK: - Direct C Shim Symbol Bindings
-@_silgen_name("dtalk_create")
-private func dtalk_create(_ rom_data: UnsafePointer<UInt8>?, _ rom_size: Int) -> OpaquePointer?
-
-@_silgen_name("dtalk_destroy")
-private func dtalk_destroy(_ dt: OpaquePointer?)
-
-@_silgen_name("dtalk_reset")
-private func dtalk_reset(_ dt: OpaquePointer?)
-
-@_silgen_name("dtalk_sample_rate")
-private func dtalk_sample_rate(_ dt: OpaquePointer?) -> UInt32
-
-@_silgen_name("dtalk_queue")
-private func dtalk_queue(_ dt: OpaquePointer?, _ text: UnsafePointer<CChar>?, _ len: Int)
-
-@_silgen_name("dtalk_stop")
-private func dtalk_stop(_ dt: OpaquePointer?)
-
-@_silgen_name("dtalk_set_lowpass_hz")
-private func dtalk_set_lowpass_hz(_ dt: OpaquePointer?, _ hz: UInt32)
-
-@_silgen_name("dtalk_set_rate_boost")
-private func dtalk_set_rate_boost(_ dt: OpaquePointer?, _ level: Int32)
-
-@_silgen_name("dtalk_synth16")
-private func dtalk_synth16(_ dt: OpaquePointer?, _ buf: UnsafeMutablePointer<Int16>?, _ max_samples: Int) -> Int
-
 public final class DoubleTalkSynthesizer {
     private var handle: OpaquePointer?
     public let sampleRate: Double = 10504.0
