@@ -5,10 +5,22 @@
  * low-pass biquad filtering, rate boost table scaling, and index mark decoding.
  */
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
 #include "dtalk_shim.h"
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+#ifndef M_SQRT2
+#define M_SQRT2 1.41421356237309504880168872420969808
+#endif
 
 #define DTALK_SAMPLE_RATE 10504
 #define RING_BUFFER_SIZE 32768

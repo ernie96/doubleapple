@@ -24,6 +24,10 @@ jobs:
           fi
           echo "doubletalkpc.bin size: $(wc -c < doubletalkpc.bin) bytes"
 
+      - name: Build DoubleTalk Package
+        run: |
+          swift build -c release
+
       - name: Build Xcode Project
         run: |
           xcodebuild \
