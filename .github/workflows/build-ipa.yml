@@ -138,6 +138,7 @@ jobs:
           cp DoubleTalkApp.ipa releases/DoubleTalkApp.ipa
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          rm -f dtalk_shim.o DoubleTalkAppExec DoubleTalkVoiceExtensionExec
           git pull --rebase
           git add releases/DoubleTalkApp.ipa
           git commit -m "CI: Add compiled DoubleTalkApp.ipa"
