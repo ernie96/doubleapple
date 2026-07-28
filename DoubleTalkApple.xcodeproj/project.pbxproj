@@ -276,6 +276,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
+				AD_HOC_CODE_SIGNING_ALLOWED = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Sources/CDoubleTalk/include",
@@ -296,6 +297,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
+				AD_HOC_CODE_SIGNING_ALLOWED = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Sources/CDoubleTalk/include",
@@ -315,6 +317,10 @@
 				PRODUCT_NAME = DoubleTalkApp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Sources/CDoubleTalk/include",
+				);
 			};
 			name = Debug;
 		};
@@ -327,12 +333,17 @@
 				PRODUCT_NAME = DoubleTalkApp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Sources/CDoubleTalk/include",
+				);
 			};
 			name = Release;
 		};
 		20000041 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Apps/DoubleTalkVoiceExtension/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doubletalkapple.app.voiceextension;
@@ -340,12 +351,17 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Sources/CDoubleTalk/include",
+				);
 			};
 			name = Debug;
 		};
 		20000042 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Apps/DoubleTalkVoiceExtension/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doubletalkapple.app.voiceextension;
@@ -353,6 +369,10 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/Sources/CDoubleTalk/include",
+				);
 			};
 			name = Release;
 		};

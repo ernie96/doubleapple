@@ -24,21 +24,29 @@ jobs:
           fi
           echo "doubletalkpc.bin size: $(wc -c < doubletalkpc.bin) bytes"
 
-      - name: Build Xcode Archive
+      - name: Build Xcode Project
         run: |
-          xcodebuild archive \
+          xcodebuild \
             -project DoubleTalkApple.xcodeproj \
             -scheme DoubleTalkApp \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath build/DoubleTalkApp.xcarchive \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
+            AD_HOC_CODE_SIGNING_ALLOWED=YES
 
       - name: Package Payload and Create IPA
         run: |
           mkdir -p Payload
-          cp -R build/DoubleTalkApp.xcarchive/Products/Applications/DoubleTalkApp.app Payload/
+          APP_PATH=$(find build -name "DoubleTalkApp.app" -type d | head -n 1)
+          if [ -z "$APP_PATH" ]; then
+            echo "Error: DoubleTalkApp.app not found in build directory!"
+            exit 1
+          fi
+          echo "Found compiled app at: $APP_PATH"
+          cp -R "$APP_PATH" Payload/
           zip -r DoubleTalkApp.ipa Payload
 
       - name: Upload IPA Artifact
