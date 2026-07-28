@@ -1,0 +1,57 @@
+name: DoubleTalk
+options:
+  bundleIdPrefix: com.doubletalkapple
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+
+packages:
+  DoubleTalkKit:
+    path: .
+
+settings:
+  base:
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.9"
+    CODE_SIGNING_ALLOWED: NO
+    CODE_SIGNING_REQUIRED: NO
+
+targets:
+  DoubleTalkVoiceExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - Apps/DoubleTalkVoiceExtension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.doubletalkapple.app.voiceextension
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Apps/DoubleTalkVoiceExtension/Info.plist
+        PRODUCT_NAME: DoubleTalkVoiceExtension
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension.entitlements
+    dependencies:
+      - package: DoubleTalkKit
+        product: DoubleTalkKit
+
+  DoubleTalkApp:
+    type: application
+    platform: iOS
+    sources:
+      - Apps/DoubleTalkApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.doubletalkapple.app
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Apps/DoubleTalkApp/Info.plist
+        PRODUCT_NAME: DoubleTalk
+        INFOPLIST_KEY_CFBundleDisplayName: DoubleTalk
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkApp/DoubleTalkApp.entitlements
+    dependencies:
+      - package: DoubleTalkKit
+        product: DoubleTalkKit
+      - target: DoubleTalkVoiceExtension
+        embed: true
+        codeSign: false

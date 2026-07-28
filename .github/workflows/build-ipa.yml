@@ -24,45 +24,38 @@ jobs:
           fi
           echo "doubletalkpc.bin size: $(wc -c < doubletalkpc.bin) bytes"
 
-      - name: Build DoubleTalk Package for iOS
+      - name: Install XcodeGen & Generate Project
         run: |
-          SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
-          echo "Using iOS SDK at: $SDK_PATH"
-          swift build -c release --triple arm64-apple-ios16.0 -Xswiftc -sdk -Xswiftc "$SDK_PATH"
+          if ! command -v xcodegen >/dev/null 2>&1; then
+            brew install xcodegen
+          fi
+          xcodegen generate
+
+      - name: Build Xcode Archive & App
+        run: |
+          xcodebuild \
+            -project DoubleTalk.xcodeproj \
+            -scheme DoubleTalkApp \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            build
 
       - name: Package Payload and Create IPA
         run: |
-          mkdir -p Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex
-
-          # Find compiled executables from SPM build
-          APP_BIN=$(find .build -name "DoubleTalkApp" -type f | head -n 1)
-          EXT_BIN=$(find .build -name "DoubleTalkVoiceExtension" -type f | head -n 1)
-
-          if [ -z "$APP_BIN" ]; then
-            echo "Error: DoubleTalkApp executable not found!"
+          mkdir -p Payload
+          APP_PATH=$(find build -name "DoubleTalk.app" -o -name "DoubleTalkApp.app" | head -n 1)
+          if [ -z "$APP_PATH" ]; then
+            echo "Error: DoubleTalk.app not found!"
             exit 1
           fi
-          echo "Found main app binary at: $APP_BIN"
-          echo "Found extension binary at: $EXT_BIN"
-
-          # Assemble Main App bundle
-          cp "$APP_BIN" Payload/DoubleTalkApp.app/DoubleTalkApp
-          chmod +x Payload/DoubleTalkApp.app/DoubleTalkApp
-          cp Apps/DoubleTalkApp/Info.plist Payload/DoubleTalkApp.app/Info.plist
-          cp doubletalkpc.bin Payload/DoubleTalkApp.app/doubletalkpc.bin
-          printf "APPL????" > Payload/DoubleTalkApp.app/PkgInfo
-
-          # Assemble Voice Extension bundle
-          if [ -n "$EXT_BIN" ]; then
-            cp "$EXT_BIN" Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/DoubleTalkVoiceExtension
-            chmod +x Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/DoubleTalkVoiceExtension
-            cp Apps/DoubleTalkVoiceExtension/Info.plist Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/Info.plist
-            cp doubletalkpc.bin Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/doubletalkpc.bin
-          fi
-
-          # Zip into .ipa
+          echo "Found app bundle at: $APP_PATH"
+          cp -R "$APP_PATH" Payload/DoubleTalkApp.app
           zip -r DoubleTalkApp.ipa Payload
-          echo "IPA successfully created: DoubleTalkApp.ipa ($(wc -c < DoubleTalkApp.ipa) bytes)"
+          echo "IPA created successfully: DoubleTalkApp.ipa ($(wc -c < DoubleTalkApp.ipa) bytes)"
 
       - name: Upload IPA Artifact
         uses: actions/upload-artifact@v4
