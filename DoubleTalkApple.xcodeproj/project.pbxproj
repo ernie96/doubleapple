@@ -317,6 +317,7 @@
 				PRODUCT_NAME = DoubleTalkApp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Sources/CDoubleTalk/include",
@@ -333,6 +334,7 @@
 				PRODUCT_NAME = DoubleTalkApp;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Sources/CDoubleTalk/include",
@@ -351,6 +353,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Sources/CDoubleTalk/include",
@@ -369,6 +372,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_OBJC_BRIDGING_HEADER = "Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/Sources/CDoubleTalk/include",
