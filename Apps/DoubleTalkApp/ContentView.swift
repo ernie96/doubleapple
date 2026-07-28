@@ -166,10 +166,10 @@ struct ContentView: View {
                 // MARK: - VoiceOver Integration Instructions
                 Section(header: Text("VoiceOver Integration Guide")) {
                     VStack(alignment: .leading, spacing: 10) {
-                        Label("Step 1: Open iOS Settings app", systemName: "gear")
-                        Label("Step 2: Go to Accessibility -> VoiceOver -> Speech", systemName: "hand.tap")
-                        Label("Step 3: Tap Voice -> Select DoubleTalk", systemName: "speaker.wave.3")
-                        Label("Step 4: Pick your favorite speaker (e.g. Perfect Paul, Vader)", systemName: "person.circle")
+                        Label("Step 1: Open iOS Settings app", systemImage: "gear")
+                        Label("Step 2: Go to Accessibility -> VoiceOver -> Speech", systemImage: "hand.tap")
+                        Label("Step 3: Tap Voice -> Select DoubleTalk", systemImage: "speaker.wave.3")
+                        Label("Step 4: Pick your favorite speaker (e.g. Perfect Paul, Vader)", systemImage: "person.circle")
                     }
                     .font(.subheadline)
                     .padding(.vertical, 4)
@@ -179,7 +179,7 @@ struct ContentView: View {
             .onAppear(perform: checkROM)
             .fileImporter(
                 isPresented: $showingFileImporter,
-                allowedContentTypes: [.bin, .data, .item],
+                allowedContentTypes: [.data, .item],
                 allowsMultipleSelection: false
             ) { result in
                 handleFileImport(result: result)
@@ -260,7 +260,7 @@ struct ContentView: View {
         data.append(contentsOf: withUnsafeBytes(of: Int32(dataSize).littleEndian) { Array($0) })
 
         pcmData.withUnsafeBufferPointer { ptr in
-            data.append(UnsafeRawBufferPointer(ptr))
+            data.append(contentsOf: UnsafeRawBufferPointer(ptr))
         }
 
         return data
