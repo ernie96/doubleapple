@@ -8,6 +8,7 @@
 import SwiftUI
 import AVFoundation
 import UniformTypeIdentifiers
+import DoubleTalkKit
 
 struct ContentView: View {
     @State private var settings = DoubleTalkSettingsStore.load()

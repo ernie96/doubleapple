@@ -8,14 +8,8 @@ let package = Package(
         .macOS(.v13)
     ],
     products: [
-        .library(
-            name: "CDoubleTalk",
-            targets: ["CDoubleTalk"]
-        ),
-        .library(
-            name: "DoubleTalkKit",
-            targets: ["DoubleTalkKit"]
-        )
+        .executable(name: "DoubleTalkApp", targets: ["DoubleTalkApp"]),
+        .executable(name: "DoubleTalkVoiceExtension", targets: ["DoubleTalkVoiceExtension"])
     ],
     targets: [
         .target(
@@ -31,6 +25,16 @@ let package = Package(
             name: "DoubleTalkKit",
             dependencies: ["CDoubleTalk"],
             path: "Sources/DoubleTalkKit"
+        ),
+        .executableTarget(
+            name: "DoubleTalkApp",
+            dependencies: ["DoubleTalkKit"],
+            path: "Apps/DoubleTalkApp"
+        ),
+        .executableTarget(
+            name: "DoubleTalkVoiceExtension",
+            dependencies: ["DoubleTalkKit"],
+            path: "Apps/DoubleTalkVoiceExtension"
         )
     ]
 )

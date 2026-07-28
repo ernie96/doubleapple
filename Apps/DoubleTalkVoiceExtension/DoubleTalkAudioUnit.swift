@@ -9,10 +9,7 @@
 import AVFoundation
 import Accelerate
 import CoreMedia
-
-#if canImport(DoubleTalkKit)
 import DoubleTalkKit
-#endif
 
 public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
     private let synth = DoubleTalkSynthesizer()
