@@ -26,6 +26,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.doubletalkapple.kit
         PRODUCT_NAME: DoubleTalkKit
+        SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
 
   DoubleTalkVoiceExtension:
     type: app-extension
@@ -40,6 +41,7 @@ targets:
         PRODUCT_NAME: DoubleTalkVoiceExtension
         TARGETED_DEVICE_FAMILY: "1,2"
         CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension.entitlements
+        SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h
     dependencies:
       - target: DoubleTalkKit
 
@@ -57,6 +59,7 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: DoubleTalk
         TARGETED_DEVICE_FAMILY: "1,2"
         CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkApp/DoubleTalkApp.entitlements
+        SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
     dependencies:
       - target: DoubleTalkKit
       - target: DoubleTalkVoiceExtension
