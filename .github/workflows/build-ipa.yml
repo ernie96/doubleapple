@@ -30,12 +30,25 @@ jobs:
         run: |
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
           echo "Using iOS SDK at: $SDK_PATH"
-          for file in Sources/CDoubleTalk/*.cpp Sources/CDoubleTalk/mame/*.cpp Sources/CDoubleTalk/shim/*.cpp; do
-            if [ -f "$file" ]; then
-              echo "Compiling $file"
-              xcrun -sdk iphoneos clang++ -target arm64-apple-ios16.0 -isysroot "$SDK_PATH" -std=c++17 -c -O3 -I Sources/CDoubleTalk -I Sources/CDoubleTalk/include "$file" -o "${file%.cpp}.o"
-            fi
-          done
+          {
+            for file in Sources/CDoubleTalk/*.cpp Sources/CDoubleTalk/mame/*.cpp Sources/CDoubleTalk/shim/*.cpp; do
+              if [ -f "$file" ]; then
+                echo "Compiling $file"
+                xcrun -sdk iphoneos clang++ -target arm64-apple-ios16.0 -isysroot "$SDK_PATH" -std=c++17 -c -O3 -I Sources/CDoubleTalk -I Sources/CDoubleTalk/include "$file" -o "${file%.cpp}.o"
+              fi
+            done
+          } > cpp_build.log 2>&1 || { cat cpp_build.log; exit 1; }
+
+      - name: Upload C++ Build Logs on Failure
+        if: failure()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          cp cpp_build.log cpp_error.txt
+          git add cpp_error.txt
+          git commit -m "CI: cpp_error.txt" || true
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true
       - name: Compile DoubleTalk App Binary
         run: |
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
