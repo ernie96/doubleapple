@@ -31,7 +31,6 @@ targets:
         INFOPLIST_FILE: Apps/DoubleTalkVoiceExtension/Info.plist
         PRODUCT_NAME: DoubleTalkVoiceExtension
         TARGETED_DEVICE_FAMILY: "1,2"
-        CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension.entitlements
         SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h
 
   DoubleTalkApp:
@@ -49,7 +48,6 @@ targets:
         PRODUCT_NAME: DoubleTalk
         INFOPLIST_KEY_CFBundleDisplayName: DoubleTalk
         TARGETED_DEVICE_FAMILY: "1,2"
-        CODE_SIGN_ENTITLEMENTS: Apps/DoubleTalkApp/DoubleTalkApp.entitlements
         SWIFT_OBJC_BRIDGING_HEADER: Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h
     dependencies:
       - target: DoubleTalkVoiceExtension
