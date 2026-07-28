@@ -26,18 +26,16 @@ jobs:
           fi
           echo "doubletalkpc.bin size: $(wc -c < doubletalkpc.bin) bytes"
 
-      - name: Compile DoubleTalk C Shim
+      - name: Compile DoubleTalk C++ Emulator
         run: |
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
           echo "Using iOS SDK at: $SDK_PATH"
-          xcrun -sdk iphoneos clang \
-            -target arm64-apple-ios16.0 \
-            -isysroot "$SDK_PATH" \
-            -c -O2 \
-            -I Sources/CDoubleTalk/include \
-            Sources/CDoubleTalk/dtalk_shim.c \
-            -o dtalk_shim.o
-
+          for file in Sources/CDoubleTalk/*.cpp Sources/CDoubleTalk/mame/*.cpp Sources/CDoubleTalk/shim/*.cpp; do
+            if [ -f "$file" ]; then
+              echo "Compiling $file"
+              xcrun -sdk iphoneos clang++ -target arm64-apple-ios16.0 -isysroot "$SDK_PATH" -std=c++17 -c -O3 -I Sources/CDoubleTalk -I Sources/CDoubleTalk/include "$file" -o "${file%.cpp}.o"
+            fi
+          done
       - name: Compile DoubleTalk App Binary
         run: |
           SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
@@ -52,8 +50,9 @@ jobs:
             -framework Foundation \
             -I Sources/CDoubleTalk/include \
             -Xcc -ISources/CDoubleTalk/include \
+            -Xlinker -lc++ \
             -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \
-            dtalk_shim.o \
+            Sources/CDoubleTalk/*.o Sources/CDoubleTalk/mame/*.o Sources/CDoubleTalk/shim/*.o \
             Sources/DoubleTalkKit/DoubleTalkVoice.swift \
             Sources/DoubleTalkKit/DoubleTalkSettings.swift \
             Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
@@ -88,8 +87,9 @@ jobs:
             -Xlinker -e -Xlinker _NSExtensionMain \
             -I Sources/CDoubleTalk/include \
             -Xcc -ISources/CDoubleTalk/include \
+            -Xlinker -lc++ \
             -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \
-            dtalk_shim.o \
+            Sources/CDoubleTalk/*.o Sources/CDoubleTalk/mame/*.o Sources/CDoubleTalk/shim/*.o \
             Sources/DoubleTalkKit/DoubleTalkVoice.swift \
             Sources/DoubleTalkKit/DoubleTalkSettings.swift \
             Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
@@ -138,7 +138,7 @@ jobs:
           cp DoubleTalkApp.ipa releases/DoubleTalkApp.ipa
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          rm -f dtalk_shim.o DoubleTalkAppExec DoubleTalkVoiceExtensionExec
+          rm -f Sources/CDoubleTalk/*.o Sources/CDoubleTalk/mame/*.o Sources/CDoubleTalk/shim/*.o DoubleTalkAppExec DoubleTalkVoiceExtensionExec
           git pull --rebase
           git add releases/DoubleTalkApp.ipa
           git commit -m "CI: Add compiled DoubleTalkApp.ipa"

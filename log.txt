@@ -1,0 +1,278 @@
+﻿2026-07-28T14:57:22.3520540Z Current runner version: '2.336.0'
+2026-07-28T14:57:22.3540350Z ##[group]Runner Image Provisioner
+2026-07-28T14:57:22.3540910Z Hosted Compute Agent
+2026-07-28T14:57:22.3541260Z Version: 20260624.560
+2026-07-28T14:57:22.3541650Z Commit: 925d229a51159bc391ae97e54a2dd1fe20af789d
+2026-07-28T14:57:22.3542100Z Build Date: 2026-06-24T18:26:47Z
+2026-07-28T14:57:22.3542520Z Worker ID: {2d24af52-0a86-4c5f-94c6-7a2213f57667}
+2026-07-28T14:57:22.3542950Z Azure Region: westus
+2026-07-28T14:57:22.3543300Z ##[endgroup]
+2026-07-28T14:57:22.3544390Z ##[group]Operating System
+2026-07-28T14:57:22.3544760Z macOS
+2026-07-28T14:57:22.3545060Z 14.8.7
+2026-07-28T14:57:22.3545360Z 23J520
+2026-07-28T14:57:22.3545670Z ##[endgroup]
+2026-07-28T14:57:22.3546010Z ##[group]Runner Image
+2026-07-28T14:57:22.3546360Z Image: macos-14-arm64
+2026-07-28T14:57:22.3546720Z Version: 20260629.0180.1
+2026-07-28T14:57:22.3547530Z Included Software: https://github.com/actions/runner-images/blob/macos-14-arm64/20260629.0180/images/macos/macos-14-arm64-Readme.md
+2026-07-28T14:57:22.3548550Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-14-arm64%2F20260629.0180
+2026-07-28T14:57:22.3549180Z ##[endgroup]
+2026-07-28T14:57:22.3549870Z ##[group]GITHUB_TOKEN Permissions
+2026-07-28T14:57:22.3551000Z Contents: write
+2026-07-28T14:57:22.3551340Z Metadata: read
+2026-07-28T14:57:22.3551690Z ##[endgroup]
+2026-07-28T14:57:22.3553110Z Secret source: Actions
+2026-07-28T14:57:22.3553730Z Prepare workflow directory
+2026-07-28T14:57:22.3761640Z Prepare all required actions
+2026-07-28T14:57:22.3795970Z Getting action download info
+2026-07-28T14:57:22.5255520Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-07-28T14:57:23.6064880Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-07-28T14:57:23.7761470Z Complete job name: Build iOS App & Extension (.ipa)
+2026-07-28T14:57:23.8245520Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-07-28T14:57:23.8252450Z ##[group]Run actions/checkout@v4
+2026-07-28T14:57:23.8252970Z with:
+2026-07-28T14:57:23.8253330Z   repository: ernie96/doubleapple
+2026-07-28T14:57:23.8256110Z   token: ***
+2026-07-28T14:57:23.8256430Z   ssh-strict: true
+2026-07-28T14:57:23.8256760Z   ssh-user: git
+2026-07-28T14:57:23.8257090Z   persist-credentials: true
+2026-07-28T14:57:23.8257450Z   clean: true
+2026-07-28T14:57:23.8257780Z   sparse-checkout-cone-mode: true
+2026-07-28T14:57:23.8258160Z   fetch-depth: 1
+2026-07-28T14:57:23.8258490Z   fetch-tags: false
+2026-07-28T14:57:23.8258830Z   show-progress: true
+2026-07-28T14:57:23.8259240Z   lfs: false
+2026-07-28T14:57:23.8259590Z   submodules: false
+2026-07-28T14:57:23.8259920Z   set-safe-directory: true
+2026-07-28T14:57:23.8260310Z   allow-unsafe-pr-checkout: false
+2026-07-28T14:57:23.8260800Z ##[endgroup]
+2026-07-28T14:57:23.9372780Z Syncing repository: ernie96/doubleapple
+2026-07-28T14:57:23.9374330Z ##[group]Getting Git version info
+2026-07-28T14:57:23.9374920Z Working directory is '/Users/runner/work/doubleapple/doubleapple'
+2026-07-28T14:57:23.9375890Z [command]/opt/homebrew/bin/git version
+2026-07-28T14:57:23.9564710Z git version 2.54.0
+2026-07-28T14:57:23.9586990Z ##[endgroup]
+2026-07-28T14:57:23.9591890Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/0e38d551-49c6-474f-a2d8-998c24dcbf5f/.gitconfig'
+2026-07-28T14:57:23.9595490Z Temporarily overriding HOME='/Users/runner/work/_temp/0e38d551-49c6-474f-a2d8-998c24dcbf5f' before making global git config changes
+2026-07-28T14:57:23.9596640Z Adding repository directory to the temporary git global config as a safe directory
+2026-07-28T14:57:23.9597660Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/doubleapple/doubleapple
+2026-07-28T14:57:23.9682350Z Deleting the contents of '/Users/runner/work/doubleapple/doubleapple'
+2026-07-28T14:57:23.9683570Z ##[group]Initializing the repository
+2026-07-28T14:57:23.9684270Z [command]/opt/homebrew/bin/git init /Users/runner/work/doubleapple/doubleapple
+2026-07-28T14:57:23.9869860Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-07-28T14:57:23.9920990Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-07-28T14:57:23.9922180Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-07-28T14:57:23.9922820Z hint: call:
+2026-07-28T14:57:23.9923140Z hint:
+2026-07-28T14:57:23.9923560Z hint: 	git config --global init.defaultBranch <name>
+2026-07-28T14:57:23.9924030Z hint:
+2026-07-28T14:57:23.9924520Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-07-28T14:57:23.9925500Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-07-28T14:57:23.9926080Z hint:
+2026-07-28T14:57:23.9926410Z hint: 	git branch -m <name>
+2026-07-28T14:57:23.9926780Z hint:
+2026-07-28T14:57:23.9927270Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-07-28T14:57:23.9928140Z Initialized empty Git repository in /Users/runner/work/doubleapple/doubleapple/.git/
+2026-07-28T14:57:23.9929710Z [command]/opt/homebrew/bin/git remote add origin https://github.com/ernie96/doubleapple
+2026-07-28T14:57:23.9959410Z ##[endgroup]
+2026-07-28T14:57:23.9960240Z ##[group]Disabling automatic garbage collection
+2026-07-28T14:57:23.9960890Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-07-28T14:57:24.0006740Z ##[endgroup]
+2026-07-28T14:57:24.0037830Z ##[group]Setting up auth
+2026-07-28T14:57:24.0038600Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-07-28T14:57:24.0059280Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-07-28T14:57:24.0878280Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-07-28T14:57:24.0887150Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-07-28T14:57:24.1489580Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-07-28T14:57:24.1563780Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-07-28T14:57:24.2108680Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-07-28T14:57:24.2126610Z ##[endgroup]
+2026-07-28T14:57:24.2133550Z ##[group]Fetching the repository
+2026-07-28T14:57:24.2142640Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9bd1c524a936b159d807c1f3e51e118f4315ca03:refs/remotes/origin/main
+2026-07-28T14:57:25.1765330Z From https://github.com/ernie96/doubleapple
+2026-07-28T14:57:25.1766460Z  * [new ref]         9bd1c524a936b159d807c1f3e51e118f4315ca03 -> origin/main
+2026-07-28T14:57:25.1817230Z ##[endgroup]
+2026-07-28T14:57:25.1818220Z ##[group]Determining the checkout info
+2026-07-28T14:57:25.1819120Z ##[endgroup]
+2026-07-28T14:57:25.1820960Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-07-28T14:57:25.1870810Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-07-28T14:57:25.1911220Z ##[group]Checking out the ref
+2026-07-28T14:57:25.1913530Z [command]/opt/homebrew/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-07-28T14:57:25.2042760Z Switched to a new branch 'main'
+2026-07-28T14:57:25.2048630Z branch 'main' set up to track 'origin/main'.
+2026-07-28T14:57:25.2053720Z ##[endgroup]
+2026-07-28T14:57:25.2109040Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-07-28T14:57:25.2151420Z 9bd1c524a936b159d807c1f3e51e118f4315ca03
+2026-07-28T14:57:25.2313260Z ##[group]Run if [ ! -f "doubletalkpc.bin" ]; then
+2026-07-28T14:57:25.2314360Z [36;1mif [ ! -f "doubletalkpc.bin" ]; then[0m
+2026-07-28T14:57:25.2315310Z [36;1m  echo "Error: doubletalkpc.bin missing!"[0m
+2026-07-28T14:57:25.2316210Z [36;1m  exit 1[0m
+2026-07-28T14:57:25.2316810Z [36;1mfi[0m
+2026-07-28T14:57:25.2317700Z [36;1mecho "doubletalkpc.bin size: $(wc -c < doubletalkpc.bin) bytes"[0m
+2026-07-28T14:57:25.2371100Z shell: /bin/bash -e {0}
+2026-07-28T14:57:25.2371800Z ##[endgroup]
+2026-07-28T14:57:25.2645920Z doubletalkpc.bin size:   524288 bytes
+2026-07-28T14:57:25.2704980Z ##[group]Run SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
+2026-07-28T14:57:25.2706250Z [36;1mSDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)[0m
+2026-07-28T14:57:25.2707340Z [36;1mecho "Using iOS SDK at: $SDK_PATH"[0m
+2026-07-28T14:57:25.2708240Z [36;1mxcrun -sdk iphoneos clang \[0m
+2026-07-28T14:57:25.2709070Z [36;1m  -target arm64-apple-ios16.0 \[0m
+2026-07-28T14:57:25.2709910Z [36;1m  -isysroot "$SDK_PATH" \[0m
+2026-07-28T14:57:25.2710690Z [36;1m  -c -O2 \[0m
+2026-07-28T14:57:25.2711360Z [36;1m  -I Sources/CDoubleTalk/include \[0m
+2026-07-28T14:57:25.2712210Z [36;1m  Sources/CDoubleTalk/dtalk_shim.c \[0m
+2026-07-28T14:57:25.2713000Z [36;1m  -o dtalk_shim.o[0m
+2026-07-28T14:57:25.2758890Z shell: /bin/bash -e {0}
+2026-07-28T14:57:25.2759540Z ##[endgroup]
+2026-07-28T14:57:26.1316910Z Using iOS SDK at: /Applications/Xcode_15.4.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk
+2026-07-28T14:57:26.8882000Z ##[group]Run SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
+2026-07-28T14:57:26.8882420Z [36;1mSDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)[0m
+2026-07-28T14:57:26.8882720Z [36;1mxcrun -sdk iphoneos swiftc \[0m
+2026-07-28T14:57:26.8882980Z [36;1m  -target arm64-apple-ios16.0 \[0m
+2026-07-28T14:57:26.8883260Z [36;1m  -sdk "$SDK_PATH" \[0m
+2026-07-28T14:57:26.8883460Z [36;1m  -O \[0m
+2026-07-28T14:57:26.8883630Z [36;1m  -parse-as-library \[0m
+2026-07-28T14:57:26.8883860Z [36;1m  -module-name DoubleTalkApp \[0m
+2026-07-28T14:57:26.8884090Z [36;1m  -framework SwiftUI \[0m
+2026-07-28T14:57:26.8884320Z [36;1m  -framework AVFoundation \[0m
+2026-07-28T14:57:26.8884550Z [36;1m  -framework Foundation \[0m
+2026-07-28T14:57:26.8884780Z [36;1m  -I Sources/CDoubleTalk/include \[0m
+2026-07-28T14:57:26.8885040Z [36;1m  -Xcc -ISources/CDoubleTalk/include \[0m
+2026-07-28T14:57:26.8885490Z [36;1m  -import-objc-header Apps/DoubleTalkApp/DoubleTalkApp-Bridging-Header.h \[0m
+2026-07-28T14:57:26.8885870Z [36;1m  dtalk_shim.o \[0m
+2026-07-28T14:57:26.8886130Z [36;1m  Sources/DoubleTalkKit/DoubleTalkVoice.swift \[0m
+2026-07-28T14:57:26.8886460Z [36;1m  Sources/DoubleTalkKit/DoubleTalkSettings.swift \[0m
+2026-07-28T14:57:26.8886820Z [36;1m  Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \[0m
+2026-07-28T14:57:26.8887180Z [36;1m  Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \[0m
+2026-07-28T14:57:26.8887510Z [36;1m  Apps/DoubleTalkApp/DoubleTalkApp.swift \[0m
+2026-07-28T14:57:26.8887800Z [36;1m  Apps/DoubleTalkApp/ContentView.swift \[0m
+2026-07-28T14:57:26.8888220Z [36;1m  -o DoubleTalkAppExec > swiftc_app_build.log 2>&1 || (cat swiftc_app_build.log && exit 1)[0m
+2026-07-28T14:57:26.8937500Z shell: /bin/bash -e {0}
+2026-07-28T14:57:26.8937690Z ##[endgroup]
+2026-07-28T14:57:34.5812790Z ##[group]Run SDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)
+2026-07-28T14:57:34.5813830Z [36;1mSDK_PATH=$(xcrun --sdk iphoneos --show-sdk-path)[0m
+2026-07-28T14:57:34.5814540Z [36;1mxcrun -sdk iphoneos swiftc \[0m
+2026-07-28T14:57:34.5815820Z [36;1m  -target arm64-apple-ios16.0 \[0m
+2026-07-28T14:57:34.5816460Z [36;1m  -sdk "$SDK_PATH" \[0m
+2026-07-28T14:57:34.5816990Z [36;1m  -O \[0m
+2026-07-28T14:57:34.5817440Z [36;1m  -parse-as-library \[0m
+2026-07-28T14:57:34.5822880Z [36;1m  -module-name DoubleTalkVoiceExtension \[0m
+2026-07-28T14:57:34.5823560Z [36;1m  -framework AVFoundation \[0m
+2026-07-28T14:57:34.5824140Z [36;1m  -framework CoreMedia \[0m
+2026-07-28T14:57:34.5824720Z [36;1m  -framework Accelerate \[0m
+2026-07-28T14:57:34.5825290Z [36;1m  -framework Foundation \[0m
+2026-07-28T14:57:34.5825850Z [36;1m  -framework AudioToolbox \[0m
+2026-07-28T14:57:34.5826430Z [36;1m  -framework CoreAudio \[0m
+2026-07-28T14:57:34.5827120Z [36;1m  -Xlinker -e -Xlinker _NSExtensionMain \[0m
+2026-07-28T14:57:34.5827800Z [36;1m  -I Sources/CDoubleTalk/include \[0m
+2026-07-28T14:57:34.5828470Z [36;1m  -Xcc -ISources/CDoubleTalk/include \[0m
+2026-07-28T14:57:34.5829650Z [36;1m  -import-objc-header Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension-Bridging-Header.h \[0m
+2026-07-28T14:57:34.5830750Z [36;1m  dtalk_shim.o \[0m
+2026-07-28T14:57:34.5831360Z [36;1m  Sources/DoubleTalkKit/DoubleTalkVoice.swift \[0m
+2026-07-28T14:57:34.5832180Z [36;1m  Sources/DoubleTalkKit/DoubleTalkSettings.swift \[0m
+2026-07-28T14:57:34.5833080Z [36;1m  Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \[0m
+2026-07-28T14:57:34.5833980Z [36;1m  Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \[0m
+2026-07-28T14:57:34.5834900Z [36;1m  Apps/DoubleTalkVoiceExtension/AudioUnitFactory.swift \[0m
+2026-07-28T14:57:34.5835860Z [36;1m  Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift \[0m
+2026-07-28T14:57:34.5837150Z [36;1m  -o DoubleTalkVoiceExtensionExec > swiftc_ext_build.log 2>&1 || (cat swiftc_ext_build.log && exit 1)[0m
+2026-07-28T14:57:34.5941670Z shell: /bin/bash -e {0}
+2026-07-28T14:57:34.5941950Z ##[endgroup]
+2026-07-28T14:57:37.8916810Z ##[group]Run mkdir -p Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex
+2026-07-28T14:57:37.8917400Z [36;1mmkdir -p Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex[0m
+2026-07-28T14:57:37.8917760Z [36;1m[0m
+2026-07-28T14:57:37.8917940Z [36;1m# Assemble Main App bundle[0m
+2026-07-28T14:57:37.8918270Z [36;1mcp DoubleTalkAppExec Payload/DoubleTalkApp.app/DoubleTalkApp[0m
+2026-07-28T14:57:37.8918660Z [36;1mchmod +x Payload/DoubleTalkApp.app/DoubleTalkApp[0m
+2026-07-28T14:57:37.8919110Z [36;1mcp Apps/DoubleTalkApp/Info.plist Payload/DoubleTalkApp.app/Info.plist[0m
+2026-07-28T14:57:37.8919570Z [36;1mcp doubletalkpc.bin Payload/DoubleTalkApp.app/doubletalkpc.bin[0m
+2026-07-28T14:57:37.8919990Z [36;1mprintf "APPL????" > Payload/DoubleTalkApp.app/PkgInfo[0m
+2026-07-28T14:57:37.8920270Z [36;1m[0m
+2026-07-28T14:57:37.8920450Z [36;1m# Assemble Voice Extension bundle[0m
+2026-07-28T14:57:37.8921030Z [36;1mcp DoubleTalkVoiceExtensionExec Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/DoubleTalkVoiceExtension[0m
+2026-07-28T14:57:37.8921800Z [36;1mchmod +x Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/DoubleTalkVoiceExtension[0m
+2026-07-28T14:57:37.8922550Z [36;1mcp Apps/DoubleTalkVoiceExtension/Info.plist Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/Info.plist[0m
+2026-07-28T14:57:37.8923290Z [36;1mcp doubletalkpc.bin Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/doubletalkpc.bin[0m
+2026-07-28T14:57:37.8923740Z [36;1m[0m
+2026-07-28T14:57:37.8923900Z [36;1m# Ad-hoc sign both binaries[0m
+2026-07-28T14:57:37.8924590Z [36;1mcodesign -s - --force --entitlements Apps/DoubleTalkVoiceExtension/DoubleTalkVoiceExtension.entitlements Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex[0m
+2026-07-28T14:57:37.8925520Z [36;1mcodesign -s - --force --entitlements Apps/DoubleTalkApp/DoubleTalkApp.entitlements Payload/DoubleTalkApp.app[0m
+2026-07-28T14:57:37.8925990Z [36;1m[0m
+2026-07-28T14:57:37.8926140Z [36;1m# Zip into .ipa[0m
+2026-07-28T14:57:37.8926370Z [36;1mzip -r DoubleTalkApp.ipa Payload[0m
+2026-07-28T14:57:37.8926770Z [36;1mecho "IPA created successfully: DoubleTalkApp.ipa ($(wc -c < DoubleTalkApp.ipa) bytes)"[0m
+2026-07-28T14:57:37.8976470Z shell: /bin/bash -e {0}
+2026-07-28T14:57:37.8976820Z ##[endgroup]
+2026-07-28T14:57:37.9854680Z   adding: Payload/ (stored 0%)
+2026-07-28T14:57:37.9855160Z   adding: Payload/DoubleTalkApp.app/ (stored 0%)
+2026-07-28T14:57:37.9855480Z   adding: Payload/DoubleTalkApp.app/_CodeSignature/ (stored 0%)
+2026-07-28T14:57:37.9855900Z   adding: Payload/DoubleTalkApp.app/_CodeSignature/CodeResources (deflated 75%)
+2026-07-28T14:57:38.0043140Z   adding: Payload/DoubleTalkApp.app/doubletalkpc.bin (deflated 41%)
+2026-07-28T14:57:38.0043550Z   adding: Payload/DoubleTalkApp.app/PlugIns/ (stored 0%)
+2026-07-28T14:57:38.0043970Z   adding: Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/ (stored 0%)
+2026-07-28T14:57:38.0044580Z   adding: Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/_CodeSignature/ (stored 0%)
+2026-07-28T14:57:38.0045230Z   adding: Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/_CodeSignature/CodeResources (deflated 74%)
+2026-07-28T14:57:38.0230720Z   adding: Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/doubletalkpc.bin (deflated 41%)
+2026-07-28T14:57:38.0284090Z   adding: Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/DoubleTalkVoiceExtension (deflated 77%)
+2026-07-28T14:57:38.0284980Z   adding: Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex/Info.plist (deflated 67%)
+2026-07-28T14:57:38.0359600Z   adding: Payload/DoubleTalkApp.app/DoubleTalkApp (deflated 81%)
+2026-07-28T14:57:38.0360040Z   adding: Payload/DoubleTalkApp.app/Info.plist (deflated 61%)
+2026-07-28T14:57:38.0360370Z   adding: Payload/DoubleTalkApp.app/PkgInfo (stored 0%)
+2026-07-28T14:57:38.0387900Z IPA created successfully: DoubleTalkApp.ipa (  767815 bytes)
+2026-07-28T14:57:38.0412180Z ##[group]Run mkdir -p releases
+2026-07-28T14:57:38.0412420Z [36;1mmkdir -p releases[0m
+2026-07-28T14:57:38.0412650Z [36;1mcp DoubleTalkApp.ipa releases/DoubleTalkApp.ipa[0m
+2026-07-28T14:57:38.0412950Z [36;1mgit config --global user.name "github-actions[bot]"[0m
+2026-07-28T14:57:38.0413340Z [36;1mgit config --global user.email "github-actions[bot]@users.noreply.github.com"[0m
+2026-07-28T14:57:38.0413770Z [36;1mrm -f dtalk_shim.o DoubleTalkAppExec DoubleTalkVoiceExtensionExec[0m
+2026-07-28T14:57:38.0414070Z [36;1mgit pull --rebase[0m
+2026-07-28T14:57:38.0414270Z [36;1mgit add releases/DoubleTalkApp.ipa[0m
+2026-07-28T14:57:38.0414540Z [36;1mgit commit -m "CI: Add compiled DoubleTalkApp.ipa"[0m
+2026-07-28T14:57:38.0414800Z [36;1mgit push origin HEAD:main || true[0m
+2026-07-28T14:57:38.0458480Z shell: /bin/bash -e {0}
+2026-07-28T14:57:38.0458640Z ##[endgroup]
+2026-07-28T14:57:38.0870370Z error: cannot pull with rebase: You have unstaged changes.
+2026-07-28T14:57:38.0875110Z error: Please commit or stash them.
+2026-07-28T14:57:38.0888200Z ##[error]Process completed with exit code 128.
+2026-07-28T14:57:38.0956660Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-07-28T14:57:38.0957800Z ##[group]Run actions/upload-artifact@v4
+2026-07-28T14:57:38.0958000Z with:
+2026-07-28T14:57:38.0958140Z   name: DoubleTalkApp-iOS-IPA
+2026-07-28T14:57:38.0958340Z   path: DoubleTalkApp.ipa
+2026-07-28T14:57:38.0958510Z   if-no-files-found: warn
+2026-07-28T14:57:38.0958680Z   compression-level: 6
+2026-07-28T14:57:38.0958840Z   overwrite: false
+2026-07-28T14:57:38.0959000Z   include-hidden-files: false
+2026-07-28T14:57:38.0959230Z ##[endgroup]
+2026-07-28T14:57:38.2253540Z (node:1553) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-07-28T14:57:38.2254190Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-07-28T14:57:38.2274430Z With the provided path, there will be 1 file uploaded
+2026-07-28T14:57:38.2276730Z Artifact name is valid!
+2026-07-28T14:57:38.2277490Z Root directory input is valid!
+2026-07-28T14:57:38.4327770Z Beginning upload of artifact content to blob storage
+2026-07-28T14:57:38.4672960Z (node:1553) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-07-28T14:57:38.5864090Z Uploaded bytes 764682
+2026-07-28T14:57:38.5994860Z Finished uploading artifact content to blob storage!
+2026-07-28T14:57:38.6002870Z SHA256 digest of uploaded artifact zip is 2fce1f43d238ecfdfd0d6883b1dd894d0227ef93f97f6f62e46f7a53c03f021e
+2026-07-28T14:57:38.6007110Z Finalizing artifact upload
+2026-07-28T14:57:38.7799830Z Artifact DoubleTalkApp-iOS-IPA.zip successfully finalized. Artifact ID 8692832886
+2026-07-28T14:57:38.7800450Z Artifact DoubleTalkApp-iOS-IPA has been successfully uploaded! Final size is 764682 bytes. Artifact ID is 8692832886
+2026-07-28T14:57:38.7801110Z Artifact download URL: https://github.com/ernie96/doubleapple/actions/runs/30370935386/artifacts/8692832886
+2026-07-28T14:57:38.7883750Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-07-28T14:57:38.7884820Z Post job cleanup.
+2026-07-28T14:57:38.8549120Z [command]/opt/homebrew/bin/git version
+2026-07-28T14:57:38.8588400Z git version 2.54.0
+2026-07-28T14:57:38.8603470Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/a85b00ed-d136-4aef-965d-c93de7429374/.gitconfig'
+2026-07-28T14:57:38.8610090Z Temporarily overriding HOME='/Users/runner/work/_temp/a85b00ed-d136-4aef-965d-c93de7429374' before making global git config changes
+2026-07-28T14:57:38.8610840Z Adding repository directory to the temporary git global config as a safe directory
+2026-07-28T14:57:38.8612400Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/doubleapple/doubleapple
+2026-07-28T14:57:38.8658200Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-07-28T14:57:38.8695130Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-07-28T14:57:38.9168780Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-07-28T14:57:38.9212330Z http.https://github.com/.extraheader
+2026-07-28T14:57:38.9232580Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-07-28T14:57:38.9260370Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-07-28T14:57:38.9723370Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-07-28T14:57:38.9757040Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-07-28T14:57:39.0283860Z Cleaning up orphan processes
+2026-07-28T14:57:39.3788730Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
