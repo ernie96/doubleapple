@@ -1,0 +1,89 @@
+/*
+ * DoubleTalkSettingsStore.swift - Persistence & ROM Storage Manager
+ *
+ * Synchronizes user settings and firmware ROM binaries between the main iOS App
+ * and the VoiceOver Extension using shared App Group storage.
+ */
+
+import Foundation
+
+public final class DoubleTalkSettingsStore {
+    public static let groupIdentifier = "group.com.doubletalk.app"
+    public static let settingsKey = "DoubleTalkSavedSettings"
+    public static let romFilename = "doubletalkpc.bin"
+
+    private static var defaults: UserDefaults {
+        return UserDefaults(suiteName: groupIdentifier) ?? .standard
+    }
+
+    // MARK: - Settings Persistence
+
+    public static func load() -> DoubleTalkSettings {
+        guard let data = defaults.data(forKey: settingsKey),
+              let settings = try? JSONDecoder().decode(DoubleTalkSettings.self, from: data) else {
+            return .default
+        }
+        return settings
+    }
+
+    public static func save(_ settings: DoubleTalkSettings) {
+        if let data = try? JSONEncoder().encode(settings) {
+            defaults.set(data, forKey: settingsKey)
+            defaults.synchronize()
+        }
+    }
+
+    // MARK: - ROM Management
+
+    public static var containerURL: URL? {
+        FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupIdentifier)
+    }
+
+    /// Finds and returns doubletalkpc.bin ROM data from bundle or App Group container
+    public static func loadROMData() -> Data? {
+        // 1. Search in main / framework bundles
+        let bundles = [Bundle.main, Bundle(for: DoubleTalkSettingsStore.self)]
+        for bundle in bundles {
+            if let url = bundle.url(forResource: "doubletalkpc", withExtension: "bin") {
+                if let data = try? Data(contentsOf: url), data.count == 524288 {
+                    return data
+                }
+            }
+        }
+
+        // 2. Search in shared App Group container
+        if let groupURL = containerURL {
+            let romURL = groupURL.appendingPathComponent(romFilename)
+            if let data = try? Data(contentsOf: romURL), data.count == 524288 {
+                return data
+            }
+        }
+
+        // 3. Search in Documents directory
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        if let docROM = docs?.appendingPathComponent(romFilename),
+           let data = try? Data(contentsOf: docROM), data.count == 524288 {
+            return data
+        }
+
+        // 4. Search working directory path (for development/CLI)
+        let cwdROM = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent(romFilename)
+        if let data = try? Data(contentsOf: cwdROM), data.count == 524288 {
+            return data
+        }
+
+        return nil
+    }
+
+    /// Save custom ROM data to shared App Group container
+    public static func saveROMData(_ data: Data) throws {
+        guard data.count == 524288 else {
+            throw NSError(domain: "DoubleTalkROM", code: 1, userInfo: [NSLocalizedDescriptionKey: "ROM binary must be exactly 524,288 bytes (512 KB)."])
+        }
+        guard let groupURL = containerURL else {
+            throw NSError(domain: "DoubleTalkROM", code: 2, userInfo: [NSLocalizedDescriptionKey: "App Group container inaccessible."])
+        }
+        let target = groupURL.appendingPathComponent(romFilename)
+        try data.write(to: target, options: .atomic)
+    }
+}
