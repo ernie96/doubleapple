@@ -103,6 +103,8 @@ jobs:
           git add swiftc_ext_build.log
           git commit -m "CI: swiftc ext build log"
           git push
+
+      - name: Package Payload and Create IPA
         run: |
           mkdir -p Payload/DoubleTalkApp.app/PlugIns/DoubleTalkVoiceExtension.appex
 
