@@ -44,7 +44,7 @@ jobs:
             CODE_SIGN_IDENTITY="" \
             DEVELOPMENT_TEAM="" \
             AD_HOC_CODE_SIGNING_ALLOWED=YES \
-            build
+            build > build.log 2>&1 || (cat build.log | tail -n 150 && exit 1)
 
       - name: Package Payload and Create IPA
         run: |
