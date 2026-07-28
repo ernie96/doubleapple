@@ -20,6 +20,15 @@
 #include <string_view>
 #include <type_traits>
 
+#if !defined(__cpp_lib_endian) && !defined(__cpp_lib_bitops)
+namespace std {
+    enum class endian {
+        little = __ORDER_LITTLE_ENDIAN__,
+        big    = __ORDER_BIG_ENDIAN__,
+        native = __BYTE_ORDER__
+    };
+}
+#endif
 static_assert(std::endian::native == std::endian::little || std::endian::native == std::endian::big, "Mixed-endian platforms not supported");
 
 
