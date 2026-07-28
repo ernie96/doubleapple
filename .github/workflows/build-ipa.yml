@@ -58,7 +58,15 @@ jobs:
             Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
             Apps/DoubleTalkApp/DoubleTalkApp.swift \
             Apps/DoubleTalkApp/ContentView.swift \
-            -o DoubleTalkAppExec
+            -o DoubleTalkAppExec > swiftc_app_build.log 2>&1 || (cat swiftc_app_build.log && exit 1)
+      - name: Upload Build Logs on Failure
+        if: failure()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add swiftc_app_build.log
+          git commit -m "CI: swiftc build log"
+          git push
 
       - name: Compile DoubleTalk Voice Extension Binary
         run: |
