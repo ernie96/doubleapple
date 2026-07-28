@@ -1,0 +1,4 @@
+Apps/DoubleTalkApp/DoubleTalkApp.swift:17:59: error: argument passed to call that takes no arguments
+        AVSpeechSynthesisProviderVoice.updateSpeechVoices([
+                                                         ~^
+error: fatalError
