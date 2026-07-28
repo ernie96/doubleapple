@@ -33,9 +33,39 @@ jobs:
 
       - name: Build Xcode Archive & App
         run: |
+          set -e
+          # 1. Build DoubleTalkKit static library
           xcodebuild \
             -project DoubleTalk.xcodeproj \
-            -scheme DoubleTalkApp \
+            -target DoubleTalkKit \
+            -destination "generic/platform=iOS" \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            build
+
+          # 2. Build DoubleTalkVoiceExtension app extension
+          xcodebuild \
+            -project DoubleTalk.xcodeproj \
+            -target DoubleTalkVoiceExtension \
+            -destination "generic/platform=iOS" \
+            -configuration Release \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            build
+
+          # 3. Build DoubleTalkApp main application
+          xcodebuild \
+            -project DoubleTalk.xcodeproj \
+            -target DoubleTalkApp \
             -destination "generic/platform=iOS" \
             -configuration Release \
             -derivedDataPath build \
