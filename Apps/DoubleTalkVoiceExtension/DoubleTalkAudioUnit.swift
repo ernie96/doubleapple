@@ -204,14 +204,29 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         return .paul
     }
 
+    private static func normalizeSSML(_ ssml: String) -> String {
+        var s = ssml
+        // VoiceOver often sends sentences wrapped in <s> or <p>. 
+        // We inject explicit break tags to force a pause.
+        s = s.replacingOccurrences(of: "</s>", with: "</s><break time=\"250ms\"/>", options: .caseInsensitive)
+        s = s.replacingOccurrences(of: "</p>", with: "</p><break time=\"400ms\"/>", options: .caseInsensitive)
+        
+        // Inject breaks for punctuation to augment DoubleTalk's short built-in pauses.
+        // We match punctuation followed by a space, end of string, or an SSML tag.
+        s = s.replacingOccurrences(of: "([.,;:!?])(\\s+|$|<)", with: "$1<break time=\"150ms\"/>$2", options: .regularExpression)
+        
+        return s
+    }
+
     private static func segments(from ssml: String) -> [(text: String, silenceMs: Int)] {
-        let ns = ssml as NSString
+        let normalized = normalizeSSML(ssml)
+        let ns = normalized as NSString
         guard let re = try? NSRegularExpression(pattern: #"<break\b([^>]*?)/?\s*>"#, options: [.caseInsensitive]) else {
-            return [(cleanSSML(ssml), 0)]
+            return [(cleanSSML(normalized), 0)]
         }
         var result: [(text: String, silenceMs: Int)] = []
         var last = 0
-        for m in re.matches(in: ssml, range: NSRange(location: 0, length: ns.length)) {
+        for m in re.matches(in: normalized, range: NSRange(location: 0, length: ns.length)) {
             let chunk = ns.substring(with: NSRange(location: last, length: m.range.location - last))
             let attrs = m.range(at: 1).location != NSNotFound ? ns.substring(with: m.range(at: 1)) : ""
             let ms = silenceMilliseconds(fromBreakAttributes: attrs)
@@ -220,7 +235,7 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         }
         let tail = cleanSSML(ns.substring(from: last))
         if !tail.isEmpty { result.append((tail, 0)) }
-        return result.isEmpty ? [(cleanSSML(ssml), 0)] : result
+        return result.isEmpty ? [(cleanSSML(normalized), 0)] : result
     }
 
     private static func cleanSSML(_ ssml: String) -> String {
