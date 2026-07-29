@@ -40,11 +40,11 @@ public struct DoubleTalkSettings: Codable, Equatable {
         formant: Int = 60,
         reverb: Int = 10,
         lowpassHz: Int = 3800,
-        pauseCommaMs: Int = 250,
-        pausePeriodMs: Int = 400,
-        pauseSentenceMs: Int = 250,
-        pauseParagraphMs: Int = 400,
-        pauseBreakMs: Int = 400,
+        pauseCommaMs: Int = 0,
+        pausePeriodMs: Int = 0,
+        pauseSentenceMs: Int = 50,
+        pauseParagraphMs: Int = 0,
+        pauseBreakMs: Int = 0,
         customVoices: [String: CustomVoice] = [:]
     ) {
         self.speaker = speaker
@@ -79,11 +79,11 @@ public struct DoubleTalkSettings: Codable, Equatable {
         formant = try container.decodeIfPresent(Int.self, forKey: .formant) ?? 60
         reverb = try container.decodeIfPresent(Int.self, forKey: .reverb) ?? 10
         lowpassHz = try container.decodeIfPresent(Int.self, forKey: .lowpassHz) ?? 3800
-        pauseCommaMs = try container.decodeIfPresent(Int.self, forKey: .pauseCommaMs) ?? 250
-        pausePeriodMs = try container.decodeIfPresent(Int.self, forKey: .pausePeriodMs) ?? 400
-        pauseSentenceMs = try container.decodeIfPresent(Int.self, forKey: .pauseSentenceMs) ?? 250
-        pauseParagraphMs = try container.decodeIfPresent(Int.self, forKey: .pauseParagraphMs) ?? 400
-        pauseBreakMs = try container.decodeIfPresent(Int.self, forKey: .pauseBreakMs) ?? 400
+        pauseCommaMs = try container.decodeIfPresent(Int.self, forKey: .pauseCommaMs) ?? 0
+        pausePeriodMs = try container.decodeIfPresent(Int.self, forKey: .pausePeriodMs) ?? 0
+        pauseSentenceMs = try container.decodeIfPresent(Int.self, forKey: .pauseSentenceMs) ?? 50
+        pauseParagraphMs = try container.decodeIfPresent(Int.self, forKey: .pauseParagraphMs) ?? 0
+        pauseBreakMs = try container.decodeIfPresent(Int.self, forKey: .pauseBreakMs) ?? 0
         customVoices = try container.decodeIfPresent([String: CustomVoice].self, forKey: .customVoices) ?? [:]
     }
 
