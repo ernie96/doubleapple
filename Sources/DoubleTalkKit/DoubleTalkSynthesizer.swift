@@ -56,9 +56,8 @@ public final class DoubleTalkSynthesizer {
         let preset = speaker.preset
         var parts: [String] = []
 
-        // Voice (nO) & Number mode 14B (pronounce leading zeros)
+        // Voice (nO)
         parts.append("\u{01}\(speaker.rawValue)O")
-        parts.append("\u{01}14B")
 
         // Speed (nS)
         parts.append("\u{01}\(DoubleTalkSettings.map0to9(settings.rate))S")
