@@ -112,7 +112,7 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         let speaker = Self.speaker(for: request.voice.identifier)
 
         requestCount += 1
-        var segments = Self.segments(from: ssml)
+        var segments = Self.segments(from: ssml, settings: settings)
         if segments.allSatisfy({ $0.text.isEmpty }) && requestCount == 1 {
             segments = [(text: "DoubleTalk PC.", silenceMs: 0)]
         }
@@ -204,29 +204,36 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         return .paul
     }
 
-    private static func normalizeSSML(_ ssml: String) -> String {
+    private static func normalizeSSML(_ ssml: String, settings: DoubleTalkSettings) -> String {
         var s = ssml
         // VoiceOver often sends sentences wrapped in <s> or <p>. 
         // We inject explicit break tags to force a pause.
-        s = s.replacingOccurrences(of: "</s>", with: "</s><break time=\"250ms\"/>", options: .caseInsensitive)
-        s = s.replacingOccurrences(of: "</p>", with: "</p><break time=\"400ms\"/>", options: .caseInsensitive)
-        
-        // VoiceOver sometimes separates UI elements with newlines.
-        s = s.replacingOccurrences(of: "\n", with: "<break time=\"300ms\"/>")
-        s = s.replacingOccurrences(of: "\r", with: "<break time=\"300ms\"/>")
+        if settings.pauseSentenceMs > 0 {
+            s = s.replacingOccurrences(of: "</s>", with: "</s><break time=\"\(settings.pauseSentenceMs)ms\"/>", options: .caseInsensitive)
+        }
+        if settings.pauseParagraphMs > 0 {
+            s = s.replacingOccurrences(of: "</p>", with: "</p><break time=\"\(settings.pauseParagraphMs)ms\"/>", options: .caseInsensitive)
+            // VoiceOver sometimes separates UI elements with newlines.
+            s = s.replacingOccurrences(of: "\n", with: "<break time=\"\(settings.pauseParagraphMs)ms\"/>")
+            s = s.replacingOccurrences(of: "\r", with: "<break time=\"\(settings.pauseParagraphMs)ms\"/>")
+        }
         
         // Inject breaks for punctuation to augment DoubleTalk's short built-in pauses.
         // We match punctuation followed by a space, end of string, or an SSML tag.
         // Commas and colons get a short pause.
-        s = s.replacingOccurrences(of: "([,;:])(\\s+|$|<)", with: "$1<break time=\"250ms\"/>$2", options: .regularExpression)
+        if settings.pauseCommaMs > 0 {
+            s = s.replacingOccurrences(of: "([,;:])(\\s+|$|<)", with: "$1<break time=\"\(settings.pauseCommaMs)ms\"/>$2", options: .regularExpression)
+        }
         // Periods, question marks, and exclamation marks get a longer pause.
-        s = s.replacingOccurrences(of: "([.!?])(\\s+|$|<)", with: "$1<break time=\"400ms\"/>$2", options: .regularExpression)
+        if settings.pausePeriodMs > 0 {
+            s = s.replacingOccurrences(of: "([.!?])(\\s+|$|<)", with: "$1<break time=\"\(settings.pausePeriodMs)ms\"/>$2", options: .regularExpression)
+        }
         
         return s
     }
 
-    private static func segments(from ssml: String) -> [(text: String, silenceMs: Int)] {
-        let normalized = normalizeSSML(ssml)
+    private static func segments(from ssml: String, settings: DoubleTalkSettings) -> [(text: String, silenceMs: Int)] {
+        let normalized = normalizeSSML(ssml, settings: settings)
         let ns = normalized as NSString
         guard let re = try? NSRegularExpression(pattern: #"<break\b([^>]*?)/?\s*>"#, options: [.caseInsensitive]) else {
             return [(cleanSSML(normalized), 0)]
@@ -236,7 +243,7 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         for m in re.matches(in: normalized, range: NSRange(location: 0, length: ns.length)) {
             let chunk = ns.substring(with: NSRange(location: last, length: m.range.location - last))
             let attrs = m.range(at: 1).location != NSNotFound ? ns.substring(with: m.range(at: 1)) : ""
-            let ms = silenceMilliseconds(fromBreakAttributes: attrs)
+            let ms = silenceMilliseconds(fromBreakAttributes: attrs, defaultMs: settings.pauseBreakMs)
             result.append((cleanSSML(chunk), ms))
             last = m.range.location + m.range.length
         }
@@ -254,14 +261,13 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         return t.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private static func silenceMilliseconds(fromBreakAttributes attrs: String) -> Int {
+    private static func silenceMilliseconds(fromBreakAttributes attrs: String, defaultMs: Int) -> Int {
         func value(_ name: String) -> String? {
             guard let re = try? NSRegularExpression(pattern: "\(name)\\s*=\\s*[\"']([^\"']+)[\"']", options: [.caseInsensitive]),
-                  let m = re.firstMatch(in: attrs, range: NSRange(attrs.startIndex..., in: attrs)),
-                  let r = Range(m.range(at: 1), in: attrs) else { return nil }
-            return String(attrs[r])
+                  let m = re.firstMatch(in: attrs, range: NSRange(location: 0, length: (attrs as NSString).length)) else { return nil }
+            return (attrs as NSString).substring(with: m.range(at: 1))
         }
-        func cap(_ ms: Int) -> Int { max(0, min(ms, 2000)) }
+        func cap(_ n: Int) -> Int { min(10000, max(0, n)) }
         if let time = value("time")?.lowercased().trimmingCharacters(in: .whitespaces) {
             if time.hasSuffix("ms"), let n = Double(time.dropLast(2)) { return cap(Int(n)) }
             if time.hasSuffix("s"),  let n = Double(time.dropLast(1)) { return cap(Int(n * 1000)) }
@@ -275,10 +281,10 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
             case "medium": return cap(500)
             case "strong": return cap(750)
             case "x-strong": return cap(1000)
-            default: return cap(400)
+            default: return cap(defaultMs)
             }
         }
-        return 400
+        return cap(defaultMs)
     }
 
     private static func extractProsodyAttribute(_ ssml: String, _ attribute: String) -> Float? {

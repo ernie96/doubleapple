@@ -18,6 +18,14 @@ public struct DoubleTalkSettings: Codable, Equatable {
     public var formant: Int         // 10-100 slider (60 = default 5F)
     public var reverb: Int          // 10-100 slider (10 = default 0R)
     public var lowpassHz: Int       // 2000, 3000, 3800, 4800, 5000
+    
+    // Injected SSML Pauses (milliseconds)
+    public var pauseCommaMs: Int
+    public var pausePeriodMs: Int
+    public var pauseSentenceMs: Int
+    public var pauseParagraphMs: Int
+    public var pauseBreakMs: Int
+
     public var customVoices: [String: CustomVoice]
 
     public init(
@@ -32,6 +40,11 @@ public struct DoubleTalkSettings: Codable, Equatable {
         formant: Int = 60,
         reverb: Int = 10,
         lowpassHz: Int = 3800,
+        pauseCommaMs: Int = 250,
+        pausePeriodMs: Int = 400,
+        pauseSentenceMs: Int = 250,
+        pauseParagraphMs: Int = 400,
+        pauseBreakMs: Int = 400,
         customVoices: [String: CustomVoice] = [:]
     ) {
         self.speaker = speaker
@@ -45,7 +58,33 @@ public struct DoubleTalkSettings: Codable, Equatable {
         self.formant = formant
         self.reverb = reverb
         self.lowpassHz = lowpassHz
+        self.pauseCommaMs = pauseCommaMs
+        self.pausePeriodMs = pausePeriodMs
+        self.pauseSentenceMs = pauseSentenceMs
+        self.pauseParagraphMs = pauseParagraphMs
+        self.pauseBreakMs = pauseBreakMs
         self.customVoices = customVoices
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        speaker = try container.decodeIfPresent(DoubleTalkSpeaker.self, forKey: .speaker) ?? .paul
+        rate = try container.decodeIfPresent(Int.self, forKey: .rate) ?? 60
+        rateBoost = try container.decodeIfPresent(Bool.self, forKey: .rateBoost) ?? false
+        pitch = try container.decodeIfPresent(Int.self, forKey: .pitch) ?? 50
+        volume = try container.decodeIfPresent(Int.self, forKey: .volume) ?? 60
+        tone = try container.decodeIfPresent(Int.self, forKey: .tone) ?? 1
+        articulation = try container.decodeIfPresent(Int.self, forKey: .articulation) ?? 60
+        expression = try container.decodeIfPresent(Int.self, forKey: .expression) ?? 60
+        formant = try container.decodeIfPresent(Int.self, forKey: .formant) ?? 60
+        reverb = try container.decodeIfPresent(Int.self, forKey: .reverb) ?? 10
+        lowpassHz = try container.decodeIfPresent(Int.self, forKey: .lowpassHz) ?? 3800
+        pauseCommaMs = try container.decodeIfPresent(Int.self, forKey: .pauseCommaMs) ?? 250
+        pausePeriodMs = try container.decodeIfPresent(Int.self, forKey: .pausePeriodMs) ?? 400
+        pauseSentenceMs = try container.decodeIfPresent(Int.self, forKey: .pauseSentenceMs) ?? 250
+        pauseParagraphMs = try container.decodeIfPresent(Int.self, forKey: .pauseParagraphMs) ?? 400
+        pauseBreakMs = try container.decodeIfPresent(Int.self, forKey: .pauseBreakMs) ?? 400
+        customVoices = try container.decodeIfPresent([String: CustomVoice].self, forKey: .customVoices) ?? [:]
     }
 
     public static let `default` = DoubleTalkSettings()

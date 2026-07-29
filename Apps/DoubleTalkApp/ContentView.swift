@@ -163,6 +163,54 @@ struct ContentView: View {
                     }
                 }
 
+                // MARK: - Punctuation & Pacing
+                Section(header: Text("Punctuation & Pacing"), footer: Text("Adjust the length of artificially injected pauses. Set to 0ms to let the DoubleTalk hardware handle pacing natively.")) {
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Comma & Colon")
+                            Spacer()
+                            Text("\(settings.pauseCommaMs) ms").foregroundColor(.secondary)
+                        }
+                        Slider(value: Binding(get: { Double(settings.pauseCommaMs) }, set: { settings.pauseCommaMs = Int($0); saveSettings() }), in: 0...1000, step: 50)
+                    }
+
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Period & Exclamation")
+                            Spacer()
+                            Text("\(settings.pausePeriodMs) ms").foregroundColor(.secondary)
+                        }
+                        Slider(value: Binding(get: { Double(settings.pausePeriodMs) }, set: { settings.pausePeriodMs = Int($0); saveSettings() }), in: 0...1000, step: 50)
+                    }
+
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("VoiceOver Sentence Boundary")
+                            Spacer()
+                            Text("\(settings.pauseSentenceMs) ms").foregroundColor(.secondary)
+                        }
+                        Slider(value: Binding(get: { Double(settings.pauseSentenceMs) }, set: { settings.pauseSentenceMs = Int($0); saveSettings() }), in: 0...1000, step: 50)
+                    }
+
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Paragraph & UI Element Boundary")
+                            Spacer()
+                            Text("\(settings.pauseParagraphMs) ms").foregroundColor(.secondary)
+                        }
+                        Slider(value: Binding(get: { Double(settings.pauseParagraphMs) }, set: { settings.pauseParagraphMs = Int($0); saveSettings() }), in: 0...1000, step: 50)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("Default SSML Break")
+                            Spacer()
+                            Text("\(settings.pauseBreakMs) ms").foregroundColor(.secondary)
+                        }
+                        Slider(value: Binding(get: { Double(settings.pauseBreakMs) }, set: { settings.pauseBreakMs = Int($0); saveSettings() }), in: 0...1000, step: 50)
+                    }
+                }
+
                 // MARK: - VoiceOver Integration Instructions
                 Section(header: Text("VoiceOver Integration Guide")) {
                     VStack(alignment: .leading, spacing: 10) {
