@@ -133,6 +133,11 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
 
         if int16Samples.isEmpty {
             int16Samples = silence(10)
+        } else {
+            // VoiceOver queues separate UI elements as separate synthesis requests.
+            // DoubleTalk's hardware decay is very fast, so we append 250ms of trailing silence
+            // to ensure distinct separation between elements like the status bar.
+            int16Samples += silence(250)
         }
 
         // Convert Int16 -> Float32 (-1.0 to 1.0)
@@ -210,6 +215,10 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         // We inject explicit break tags to force a pause.
         s = s.replacingOccurrences(of: "</s>", with: "</s><break time=\"250ms\"/>", options: .caseInsensitive)
         s = s.replacingOccurrences(of: "</p>", with: "</p><break time=\"400ms\"/>", options: .caseInsensitive)
+        
+        // VoiceOver sometimes separates UI elements with newlines.
+        s = s.replacingOccurrences(of: "\n", with: "<break time=\"300ms\"/>")
+        s = s.replacingOccurrences(of: "\r", with: "<break time=\"300ms\"/>")
         
         // Inject breaks for punctuation to augment DoubleTalk's short built-in pauses.
         // We match punctuation followed by a space, end of string, or an SSML tag.
