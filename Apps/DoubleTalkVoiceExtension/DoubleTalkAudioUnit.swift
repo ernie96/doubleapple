@@ -133,11 +133,6 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
 
         if int16Samples.isEmpty {
             int16Samples = silence(10)
-        } else {
-            // VoiceOver queues separate UI elements as separate synthesis requests.
-            // DoubleTalk's hardware decay is very fast, so we append 250ms of trailing silence
-            // to ensure distinct separation between elements like the status bar.
-            int16Samples += silence(250)
         }
 
         // Convert Int16 -> Float32 (-1.0 to 1.0)
@@ -222,7 +217,10 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         
         // Inject breaks for punctuation to augment DoubleTalk's short built-in pauses.
         // We match punctuation followed by a space, end of string, or an SSML tag.
-        s = s.replacingOccurrences(of: "([.,;:!?])(\\s+|$|<)", with: "$1<break time=\"150ms\"/>$2", options: .regularExpression)
+        // Commas and colons get a short pause.
+        s = s.replacingOccurrences(of: "([,;:])(\\s+|$|<)", with: "$1<break time=\"250ms\"/>$2", options: .regularExpression)
+        // Periods, question marks, and exclamation marks get a longer pause.
+        s = s.replacingOccurrences(of: "([.!?])(\\s+|$|<)", with: "$1<break time=\"400ms\"/>$2", options: .regularExpression)
         
         return s
     }
@@ -269,15 +267,18 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
             if time.hasSuffix("s"),  let n = Double(time.dropLast(1)) { return cap(Int(n * 1000)) }
             if let n = Double(time) { return cap(Int(n)) }
         }
-        switch value("strength")?.lowercased() {
-        case "none":     return 0
-        case "x-weak":   return 100
-        case "weak":     return 200
-        case "medium":   return 350
-        case "strong":   return 500
-        case "x-strong": return 800
-        default:         return 300
+        if let strength = value("strength")?.lowercased().trimmingCharacters(in: .whitespaces) {
+            switch strength {
+            case "none": return 0
+            case "x-weak": return cap(250)
+            case "weak": return cap(350)
+            case "medium": return cap(500)
+            case "strong": return cap(750)
+            case "x-strong": return cap(1000)
+            default: return cap(400)
+            }
         }
+        return 400
     }
 
     private static func extractProsodyAttribute(_ ssml: String, _ attribute: String) -> Float? {
