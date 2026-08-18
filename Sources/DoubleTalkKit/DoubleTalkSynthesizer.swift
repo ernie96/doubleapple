@@ -87,10 +87,15 @@ public final class DoubleTalkSynthesizer {
         if cardFormant != preset.formant {
             parts.append("\u{01}\(cardFormant)F")
         }
-        let cardReverb = DoubleTalkSettings.map0to9(settings.reverb)
-        if cardReverb != preset.reverb {
-            parts.append("\u{01}\(cardReverb)R")
+        if DoubleTalkSettings.map0to9(settings.reverb) != preset.reverb {
+            parts.append("\u{01}\(DoubleTalkSettings.map0to9(settings.reverb))R")
         }
+
+        // Punctuation Filtering (nb)
+        parts.append("\u{01}\(settings.punctuationLevel)b")
+
+        // Capitalization Mode (nc)
+        parts.append("\u{01}\(settings.capitalsMode)c")
 
         return parts.joined()
     }

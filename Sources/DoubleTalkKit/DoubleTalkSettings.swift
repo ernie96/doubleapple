@@ -18,6 +18,8 @@ public struct DoubleTalkSettings: Codable, Equatable {
     public var formant: Int         // 10-100 slider (60 = default 5F)
     public var reverb: Int          // 10-100 slider (10 = default 0R)
     public var lowpassHz: Int       // 2000, 3000, 3800, 4800, 5000
+    public var punctuationLevel: Int // 0, 1, 2, 3 (none, some, most, all)
+    public var capitalsMode: Int    // 0, 1, 2, 3 (off, click, pitch, speak)
     
     // Injected SSML Pauses (milliseconds)
     public var pauseCommaMs: Int
@@ -40,6 +42,8 @@ public struct DoubleTalkSettings: Codable, Equatable {
         formant: Int = 60,
         reverb: Int = 10,
         lowpassHz: Int = 3800,
+        punctuationLevel: Int = 0,
+        capitalsMode: Int = 0,
         pauseCommaMs: Int = 0,
         pausePeriodMs: Int = 0,
         pauseSentenceMs: Int = 50,
@@ -58,6 +62,8 @@ public struct DoubleTalkSettings: Codable, Equatable {
         self.formant = formant
         self.reverb = reverb
         self.lowpassHz = lowpassHz
+        self.punctuationLevel = punctuationLevel
+        self.capitalsMode = capitalsMode
         self.pauseCommaMs = pauseCommaMs
         self.pausePeriodMs = pausePeriodMs
         self.pauseSentenceMs = pauseSentenceMs
@@ -79,6 +85,8 @@ public struct DoubleTalkSettings: Codable, Equatable {
         formant = try container.decodeIfPresent(Int.self, forKey: .formant) ?? 60
         reverb = try container.decodeIfPresent(Int.self, forKey: .reverb) ?? 10
         lowpassHz = try container.decodeIfPresent(Int.self, forKey: .lowpassHz) ?? 3800
+        punctuationLevel = try container.decodeIfPresent(Int.self, forKey: .punctuationLevel) ?? 0
+        capitalsMode = try container.decodeIfPresent(Int.self, forKey: .capitalsMode) ?? 0
         pauseCommaMs = try container.decodeIfPresent(Int.self, forKey: .pauseCommaMs) ?? 0
         pausePeriodMs = try container.decodeIfPresent(Int.self, forKey: .pausePeriodMs) ?? 0
         pauseSentenceMs = try container.decodeIfPresent(Int.self, forKey: .pauseSentenceMs) ?? 50

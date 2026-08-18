@@ -29,7 +29,8 @@ public struct DoubleTalkDictionary {
         "RealityKit": "Reality Kit",
         "ARKit": "A R Kit",
         "MetalFX": "Metal F X",
-        "TestFlight": "Test Flight"
+        "TestFlight": "Test Flight",
+        "Facebook": "Face book"
     ]
 
     private static let splitters: [(pattern: String, template: String)] = [

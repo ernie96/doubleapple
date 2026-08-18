@@ -170,6 +170,20 @@ struct ContentView: View {
                         Text("Wide (4.8 kHz)").tag(4800)
                         Text("Widest (5.0 kHz)").tag(5000)
                     }
+
+                    Picker("Hardware Punctuation Mode", selection: Binding(get: { settings.punctuationLevel }, set: { settings.punctuationLevel = $0; saveSettings() })) {
+                        Text("None").tag(0)
+                        Text("Some").tag(1)
+                        Text("Most").tag(2)
+                        Text("All").tag(3)
+                    }
+
+                    Picker("Capitalization Alert Mode", selection: Binding(get: { settings.capitalsMode }, set: { settings.capitalsMode = $0; saveSettings() })) {
+                        Text("Ignore").tag(0)
+                        Text("Click").tag(1)
+                        Text("Pitch Rise").tag(2)
+                        Text("Speak 'Cap'").tag(3)
+                    }
                 }
 
                 // MARK: - Punctuation & Pacing
