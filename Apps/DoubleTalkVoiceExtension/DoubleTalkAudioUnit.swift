@@ -314,7 +314,7 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
               let match = regex.firstMatch(in: ssml, options: [], range: NSRange(ssml.startIndex..., in: ssml)) else {
             return nil
         }
-        let valueString = String(ssml[Range(match.range(at: 1), in: ssml)!])
+        let valueString = (ssml as NSString).substring(with: match.range(at: 1))
         let numericString = valueString.replacingOccurrences(of: "%", with: "").replacingOccurrences(of: "+", with: "")
         return Float(numericString)
     }
