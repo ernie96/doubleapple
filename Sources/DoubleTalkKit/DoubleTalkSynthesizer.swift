@@ -103,7 +103,8 @@ public final class DoubleTalkSynthesizer {
         setRateBoost(enabled: settings.rateBoost)
 
         let prefix = makePrefix(settings: settings, speaker: speaker)
-        let cleanedText = text.replacingOccurrences(of: "[^\u{20}-\u{7e}]", with: " ", options: .regularExpression)
+        let modernizedText = DoubleTalkDictionary.modernize(text)
+        let cleanedText = modernizedText.replacingOccurrences(of: "[^\u{20}-\u{7e}]", with: " ", options: .regularExpression)
         let fullCommand = "\(prefix)\(cleanedText)\r"
 
         guard let asciiData = fullCommand.data(using: .ascii) else { return [] }
