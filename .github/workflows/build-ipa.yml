@@ -69,6 +69,7 @@ jobs:
             Sources/DoubleTalkKit/DoubleTalkVoice.swift \
             Sources/DoubleTalkKit/DoubleTalkSettings.swift \
             Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
+            Sources/DoubleTalkKit/DoubleTalkDictionary.swift \
             Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
             Apps/DoubleTalkApp/DoubleTalkApp.swift \
             Apps/DoubleTalkApp/ContentView.swift \
@@ -108,6 +109,7 @@ jobs:
             Sources/DoubleTalkKit/DoubleTalkVoice.swift \
             Sources/DoubleTalkKit/DoubleTalkSettings.swift \
             Sources/DoubleTalkKit/DoubleTalkSettingsStore.swift \
+            Sources/DoubleTalkKit/DoubleTalkDictionary.swift \
             Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift \
             Apps/DoubleTalkVoiceExtension/AudioUnitFactory.swift \
             Apps/DoubleTalkVoiceExtension/DoubleTalkAudioUnit.swift \
