@@ -92,9 +92,10 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
 
         // 1. Resolve requested voice speaker and load its base parameters
         var speaker: DoubleTalkSpeaker = .paul
-        let last = request.voice.identifier.split(separator: ".").last ?? ""
+        let identifierParts = request.voice.identifier.split(separator: ".")
+        let last = identifierParts.last.map(String.init) ?? ""
         if request.voice.identifier.contains(".custom.") {
-            if let custom = settings.customVoices[String(last)] {
+            if let custom = settings.customVoices[last] {
                 speaker = custom.speaker
                 settings.pitch = custom.pitch
                 settings.articulation = custom.articulation
