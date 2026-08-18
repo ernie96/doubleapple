@@ -1,4 +1,10 @@
-Apps/DoubleTalkApp/DoubleTalkApp.swift:17:59: error: argument passed to call that takes no arguments
-        AVSpeechSynthesisProviderVoice.updateSpeechVoices([
-                                                         ~^
+Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift:106:30: error: cannot find 'DoubleTalkDictionary' in scope
+        let modernizedText = DoubleTalkDictionary.modernize(text)
+                             ^~~~~~~~~~~~~~~~~~~~
+Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift:107:108: error: cannot infer contextual base in reference to member 'regularExpression'
+        let cleanedText = modernizedText.replacingOccurrences(of: "[^\u{20}-\u{7e}]", with: " ", options: .regularExpression)
+                                                                                                          ~^~~~~~~~~~~~~~~~~
+Sources/DoubleTalkKit/DoubleTalkSynthesizer.swift:110:56: error: cannot infer contextual base in reference to member 'ascii'
+        guard let asciiData = fullCommand.data(using: .ascii) else { return [] }
+                                                      ~^~~~~
 error: fatalError
