@@ -91,12 +91,6 @@ public final class DoubleTalkSynthesizer {
             parts.append("\u{01}\(DoubleTalkSettings.map0to9(settings.reverb))R")
         }
 
-        // Punctuation Filtering (nb)
-        parts.append("\u{01}\(settings.punctuationLevel)b")
-
-        // Capitalization Mode (nc)
-        parts.append("\u{01}\(settings.capitalsMode)c")
-
         return parts.joined()
     }
 
