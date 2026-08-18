@@ -90,7 +90,30 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
         let ssml = request.ssmlRepresentation
         var settings = DoubleTalkSettingsStore.load()
 
-        // Extract VoiceOver prosody scaling (rate, pitch, volume) from SSML
+        // 1. Resolve requested voice speaker and load its base parameters
+        var speaker: DoubleTalkSpeaker = .paul
+        let last = request.voice.identifier.split(separator: ".").last ?? ""
+        if request.voice.identifier.contains(".custom.") {
+            if let custom = settings.customVoices[String(last)] {
+                speaker = custom.speaker
+                settings.pitch = custom.pitch
+                settings.articulation = custom.articulation
+                settings.expression = custom.expression
+                settings.formant = custom.formant
+                settings.tone = custom.tone
+                settings.reverb = custom.reverb
+            }
+        } else if let raw = Int(last), let spk = DoubleTalkSpeaker(rawValue: raw) {
+            speaker = spk
+            settings.pitch = DoubleTalkSettings.cardPitchToNvda(spk.preset.pitch)
+            settings.articulation = DoubleTalkSettings.card0to9ToNvda(spk.preset.articulation)
+            settings.expression = DoubleTalkSettings.card0to9ToNvda(spk.preset.expression)
+            settings.formant = DoubleTalkSettings.card0to9ToNvda(spk.preset.formant)
+            settings.tone = spk.preset.tone
+            settings.reverb = DoubleTalkSettings.card0to9ToNvda(spk.preset.reverb)
+        }
+
+        // 2. Extract VoiceOver prosody scaling (rate, pitch, volume) from SSML and apply as offsets/ratios
         if let rateVal = Self.extractProsodyAttribute(ssml, "rate") {
             let ratio = rateVal / 100.0
             settings.rate = min(100, max(10, Int(Float(settings.rate) * ratio)))
@@ -107,9 +130,6 @@ public final class DoubleTalkAudioUnit: AVSpeechSynthesisProviderAudioUnit {
             let ratio = volVal / 100.0
             settings.volume = min(100, max(0, Int(Float(settings.volume) * ratio)))
         }
-
-        // Resolve requested voice speaker
-        let speaker = Self.speaker(for: request.voice.identifier)
 
         requestCount += 1
         var segments = Self.segments(from: ssml, settings: settings)

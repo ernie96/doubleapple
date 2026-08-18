@@ -55,6 +55,15 @@ struct ContentView: View {
                         }
                     }
                     .pickerStyle(.menu)
+                    .onChange(of: selectedSpeaker) { newValue in
+                        settings.pitch = DoubleTalkSettings.cardPitchToNvda(newValue.preset.pitch)
+                        settings.articulation = DoubleTalkSettings.card0to9ToNvda(newValue.preset.articulation)
+                        settings.expression = DoubleTalkSettings.card0to9ToNvda(newValue.preset.expression)
+                        settings.formant = DoubleTalkSettings.card0to9ToNvda(newValue.preset.formant)
+                        settings.tone = newValue.preset.tone
+                        settings.reverb = DoubleTalkSettings.card0to9ToNvda(newValue.preset.reverb)
+                        saveSettings()
+                    }
 
                     TextField("Text to speak", text: $testText)
                         .textFieldStyle(.roundedBorder)
