@@ -67,6 +67,14 @@ public struct DoubleTalkDictionary {
     public static func modernize(_ text: String) -> String {
         var t = text
         
+        // 0. Smart Punctuation Normalization
+        // Convert curly/smart quotes and em/en dashes to standard ASCII
+        // so they aren't stripped out by the strict ASCII filter later.
+        t = t.replacingOccurrences(of: "[‘’`]", with: "'", options: .regularExpression)
+             .replacingOccurrences(of: "[“”]", with: "\"", options: .regularExpression)
+             .replacingOccurrences(of: "[—–]", with: "-", options: .regularExpression)
+             .replacingOccurrences(of: "…", with: "...")
+        
         // 1. Lexicon Replacements
         // Replace exact word-bounded occurrences
         for (re, replacement) in acronymRegexes {
